@@ -1,0 +1,2 @@
+# miniRT
+my first raytracing
