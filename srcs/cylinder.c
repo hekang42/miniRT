@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 09:09:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/19 15:52:28 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/21 00:56:41 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,23 @@ int             cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
     if (c.discriminant < 0.00001)
         return (FALSE);
     c.root = (-c.b + pow(c.discriminant, 0.5)) / 2 / c.a;
-    if (c.root < (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a)
-        c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
-        
-
+    // if (c.root < (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a)
+    //     c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
     if (c.root < rec->t_min || c.root > rec->t_max)
     {
-        c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
-        if (c.root < rec->t_min || c.root > rec->t_max)
+        // c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
+        // if (c.root < rec->t_min || c.root > rec->t_max)
             return (FALSE);
     }
-    if ((-c.b - pow(c.discriminant, 0.5) < rec->t_min)
-        || (-c.b + pow(c.discriminant, 0.5) < rec->t_min))
+    // if ((-c.b - pow(c.discriminant, 0.5) < rec->t_min)
+        if ((-c.b - pow(c.discriminant, 0.5)) / 2 / c.a < rec->t_min)
         return (FALSE);
     rec->t = c.root;
     rec->p = ray_at(r, c.root);
     c.cp = vec_sub(rec->p, cy->origin);
     rec->color = cy->color;
     rec->normal = vec_unit(vec_sub(rec->p, cy->origin));
+    // set_face_normal(r, rec);
     if ((0 <= vec_dot(c.cp, cy->normal)) && (vec_dot(c.cp, cy->normal) <= cy->height))
         return (TRUE);
     return (FALSE);
@@ -94,15 +93,18 @@ int             cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
     c.discriminant = pow(c.b, 2) - 4 * c.a * c.c;
     if (c.discriminant < 0.00001)
         return (FALSE);
-    c.root = (-c.b + pow(c.discriminant, 0.5)) / 2 / c.a;
-    if (c.root > (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a)
-        c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
+    c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
+    // if (c.root > (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a)
+    //     c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
     if (c.root < rec->t_min || c.root > rec->t_max)
     {
         c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
-        if (c.root < rec->t_min || c.root > rec->t_max)
-            return (FALSE);
+        // if (c.root < rec->t_min || c.root > rec->t_max)
+        //     return (FALSE);
     }
+    // if ((-c.b - pow(c.discriminant, 0.5) < rec->t_min)
+        if ((-c.b + pow(c.discriminant, 0.5)) / 2 / c.a < rec->t_min)
+        return (FALSE);
     
     rec->t = c.root;
     rec->p = ray_at(r, c.root);

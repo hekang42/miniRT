@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:10:34 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/17 17:30:25 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/20 22:18:23 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int         hitlst_hit(t_list *lst, t_hit_record *rec)
         }
         lst = lst->next;
     }
-    // printf("000\n");
-    // printf("hit_anything :%d \n", hit_anything);
     return (hit_anything);
 }
 
