@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/19 10:50:38 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/22 09:22:20 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,18 @@ t_sphere        *init_sphere(t_vec *center, double radius, t_vec *color)
 // 	return (FALSE);
 // }
 
-void	set_face_normal(t_ray *r, t_hit_record *rec)
+void	set_face_normal(t_ray *r, t_hit_record *rec, int n)
 {
-	rec->is_front_face = vec_dot(r->dir, rec->normal) < 0;
-	rec->normal = (rec->is_front_face) ? rec->normal : vec_mul_const(rec->normal, -1);
+    if (n == 1)
+    {
+        rec->is_front_face = vec_dot(r->dir, rec->normal) < 0;
+        rec->normal = (rec->is_front_face) ? rec->normal : vec_mul_const(rec->normal, -1);
+    }
+    else if (n == 2)
+    {
+        rec->is_front_face = vec_dot(r->dir, rec->normal) < 0;
+        rec->normal = (rec->is_front_face) ? vec_mul_const(rec->normal, -1) : rec->normal;
+    }
 }
 
 int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
@@ -90,7 +98,7 @@ int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
     rec->color = sp->color;
     rec->normal = vec_unit(vec_sub(rec->p, sp->center));
     // rec->normal = vec_div_const(vec_sub(rec->p, sp->center), sp->radius);
-	set_face_normal(r, rec);
+	set_face_normal(r, rec, TRUE);
     return (TRUE);
     // if (discriminant < 0)
     //     return (-1.0);

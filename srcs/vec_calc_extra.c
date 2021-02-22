@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 21:01:34 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/08 16:20:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/22 13:31:07 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ double      vec_len_sqrt(t_vec *u)
     return (pow(u->x, 2.0) + pow(u->y, 2.0) + pow(u->z, 2.0));
 }
 
-double	vec_length(t_vec *a)
-{
-	return (sqrt(vec_len_sqrt(a)));
-}
-
 t_vec       *vec_unit(t_vec *u)
 {
     t_vec   *result;
@@ -58,6 +53,6 @@ int			vec_is_parallel(t_vec *a, t_vec *b)
 
 	dot = vec_dot(a, b);
 	dot = ((dot < 0) ? (-1 * dot) : dot);
-	length = vec_length(a) * vec_length(b);
+	length = vec_len(a) * vec_len(b);
 	return ((dot == length) ? TRUE : FALSE);
 }

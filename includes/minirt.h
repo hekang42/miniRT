@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/19 15:25:11 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/22 09:22:49 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void        mlx_draw_by_img_data(t_mlx_data *mlx_data, t_img_data *img_data);
 t_ray               *camera_get_ray(t_camera *cam, double u, double v);
 int                 cal_hittable_color(t_scene *scene, t_hit_record *rec);
 int         triangle_hit(void *obj, t_ray *r, t_hit_record *rec);
-void	set_face_normal(t_ray *r, t_hit_record *rec);
+void	set_face_normal(t_ray *r, t_hit_record *rec, int n);
 t_vec 	*clamp_vec(t_vec *vec, double min, double max);
 int     in_shadow(t_scene *scene, t_hit_record *rec);
 int             square_hit(void *obj, t_ray *r, t_hit_record *rec);

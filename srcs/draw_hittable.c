@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:18:41 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/19 15:02:14 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/22 14:16:19 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int                 cal_hittable_color(t_scene *scene, t_hit_record *rec)
 
             // return (get_color(vec_create(0, 0, 0)));
         diffuse = diffuse_color(scene, rec);
+        // diffuse = vec_create(0, 0, 0);
         specular = specular_color(scene, rec);
         // specular = vec_create(0, 0, 0);
         ambient = vec_add(rec->color, vec_mul_const(scene->ambient->color, scene->ambient->ratio));
@@ -93,7 +94,6 @@ int                 cal_hittable_color(t_scene *scene, t_hit_record *rec)
 
         result = get_color(vec_add(vec_add(diffuse, specular), ambient));
 
-        
         // free(diffuse);
         // free(specular);
         // free(ambient);
