@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:11:19 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/23 17:54:46 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/25 14:25:31 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ int     parse_triangle(t_scene *scene, char *line)
     tmp = ft_split(s[4], ',');
     tri->color = vec_create(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]));
     hitlst_add(scene->obj, (void *)tri, OBJ_TRIANGLE);
-    printf("triangle\n\n");
-    printf("p0 = %f %f %f \n", tri->p0->x, tri->p0->y, tri->p0->z);
     return (1);
 }
 
@@ -107,8 +105,6 @@ int     parse_square(t_scene *scene, char *line)
     tmp = ft_split(s[4], ',');
     sq->color = vec_create(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]));
     hitlst_add(scene->obj, (void *)sq, OBJ_SQUARE);
-    printf("square\n\n");
-    printf("p0 = %f %f %f \n", sq->origin->x, sq->origin->y, sq->origin->z);
     return (1);
 }
 

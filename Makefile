@@ -6,7 +6,7 @@
 #    By: hekang <hekang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 00:08:03 by hekang            #+#    #+#              #
-#    Updated: 2021/02/19 09:20:24 by hekang           ###   ########.fr        #
+#    Updated: 2021/02/25 14:24:59 by hekang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJS	= $(SRCS:.c=.o)
 INCDIR	= ./includes/
 LIBDIR	= ./libft/
 LIBNAME = libft.a
-MLXDIR	= ./mlx/
+# MLXDIR	= ./mlx/
 MLXNAME = libmlx.dylib
 
 NAME	= minirt
@@ -34,26 +34,21 @@ RM 		= rm -f
 %.o:		%.c
 			$(GCC) $(GCCFLAG) -I$(INCDIR) -c $< -o $@
 
-$(NAME):	$(LIBNAME) $(MLXNAME) $(OBJS) 
-			$(GCC) $(GCCFLAG) -I$(INCDIR) -L$(MLXDIR) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJS) $(LIBNAME) $(MLXNAME)
+$(NAME):	$(LIBNAME)  $(OBJS) 
+			$(GCC) $(GCCFLAG) -I$(INCDIR) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJS) $(LIBNAME) $(MLXNAME)
 
 $(LIBNAME):
 			@$(MAKE) -C $(LIBDIR) bonus
 			@cp $(addprefix $(LIBDIR), $(LIBNAME)) $(LIBNAME)
 
-$(MLXNAME):
-			@$(MAKE) -C $(MLXDIR)
-			@cp $(addprefix $(MLXDIR), $(MLXNAME)) $(MLXNAME)
-
 all:		$(NAME)
 
 clean:
-			$(RM) $(OBJS) *.bmp
+			$(RM) $(OBJS)
 
 fclean:		clean
-			$(RM) $(NAME) $(LIBNAME) $(MLXNAME)
+			$(RM) $(NAME) $(LIBNAME)
 			@$(MAKE) -C $(LIBDIR) fclean
-			@$(MAKE) -C $(MLXDIR) clean
 
 re:			fclean all
 
