@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:59:16 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/25 20:51:59 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/26 11:14:52 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,37 @@ t_vec           *vec_orient(t_vec *a, t_vec *n)
     t_vec   *tmp;
     // radian = t * 3.141592 / 180;
 
-    t.x = -1 * (n->x) * PI;
-    t.y = -1 * (n->y) * PI;
-    t.z = -1 * (n->z) * PI;
+    n = vec_unit(n);
+    t.x = (n->x) * PI;
+    t.y = (n->y) * PI;
+    t.z = (n->z) * PI;
 
-    t.x = 0;
-    t.y = 0;
-    t.z = 0;
 
-    if (n->x != 0)
-        t.x = acos(vec_dot(vec_create(1, 0, 0), n) / vec_len(n));
-    if (n->y != 0)
-        t.y = acos(vec_dot(vec_create(0, 1, 0), n) / vec_len(n));
+
+    // t.x = 0;
+    // t.y = 0;
+    // t.z = 0;
+
+    // t.x = atan2(n->x , sqrt(n->y * n->y + n->z * n->z));
+    // t.y = atan2(n->y , sqrt(n->x * n->x + n->z * n->z));
+    // t.z = atan2(n->z , sqrt(n->x * n->x + n->y * n->y));
+
+    // if (t.x > PI / 2)
+
+
     if (n->z != 0)
-        t.z = acos(vec_dot(vec_create(0, 0, 1), n) / vec_len(n));
+        t.x = atan(n->y / n->z);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    if (n->x != 0)
+        t.y = atan(n->z / n->x);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    if (n->y != 0)
+        t.z = atan(n->x / n->y);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+    // if (n->x != 0)
+    //     t.x = acos(vec_dot(vec_create(1, 0, 0), n) / vec_len(n));
+    // if (n->y != 0)
+    //     t.y = acos(vec_dot(vec_create(0, 1, 0), n) / vec_len(n));
+    // if (n->z != 0)
+    //     t.z = acos(vec_dot(vec_create(0, 0, 1), n) / vec_len(n));
     // if (n->z)
     //     t.x = atan(n->y/n->z);
     // if (n->x)
@@ -72,29 +89,20 @@ int             vec_each_len(t_vec *a, double l, t_vec *n)
     n_x = (vec_orient(vec_create(1,0,0), n));
     n_y = (vec_orient(vec_create(0,1,0), n));
     n_z = (vec_orient(vec_create(0,0,1), n));
+
+    t_vec   *vup;
+
+    vup = vec_create(1, 0, 0);
+    if (vec_is_parallel(vup, n))
+        vup = vec_create(0, 1, 0);
+    n_x = vec_unit(vec_cross(vup, n));
+    n_y = vec_unit(vec_cross(n, n_x));
+    n_z = vec_unit(vec_cross(n_x, n_y));
     double x = fabs(vec_dot(a, n_x));
     double y = fabs(vec_dot(a, n_y));
     double z = fabs(vec_dot(a, n_z));
-
-    // if ((fabs(vec_dot(a, n_x)) <= l) && (fabs(vec_dot(a, n_y)) <= l) && (fabs(vec_dot(a, n_z)) <= l))
-    // if ((fabs(vec_dot(a, n_x)) <= l) && (fabs(vec_dot(a, n_y)) <= l) && (fabs(vec_dot(a, n_z)) <= l))
     if ((x <= l) && (y <= l) && (z <= l))
-        // if (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) < sqrt(2) * l)
-        // if (vec_len(a) < sqrt(2) * l)
-        // if (sqrt(pow(x, 2) + pow(y, 2)) <= sqrt(2) * l)
-        // if (sqrt(pow(x, 2) + pow(z, 2)) <= sqrt(2) * l)
-        // if (sqrt(pow(y, 2) + pow(z, 2)) <= sqrt(2) * l)
-
-        
-        {
-            if (vec_len(a) > sqrt(2) * l)
-            {
-
-                printf("vec_len :%f\n", vec_len(a));
-                printf("x: %f y: %f z: %f\n", x, y, z);
-            }
-            return (TRUE);
-        }
+        return (TRUE);
     return (FALSE);
 }
 
