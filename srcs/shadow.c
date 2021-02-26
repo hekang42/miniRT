@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 17:17:46 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/23 15:06:55 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/26 13:10:09 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int     in_shadow(t_scene *scene, t_hit_record *rec)
     //     return (TRUE);
     rec->t_max = light_length;
     rec->ray = light_ray;
-    // printf("light_ray_ori : %f %f %f \n", light_ray->orig->x,light_ray->orig->y, light_ray->orig->z );
-    // printf("rec->p : %f %f %f \n", rec->p->x,rec->p->y, rec->p->z );
     if (hitlst_hit(scene->obj, rec))
         return (TRUE);
     return (FALSE);

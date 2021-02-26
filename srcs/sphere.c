@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/22 09:22:20 by hekang           ###   ########.fr       */
+/*   Updated: 2021/02/26 16:16:07 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,10 @@ t_sphere        *init_sphere(t_vec *center, double radius, t_vec *color)
 // 	return (FALSE);
 // }
 
-void	set_face_normal(t_ray *r, t_hit_record *rec, int n)
+void	set_face_normal(t_ray *r, t_hit_record *rec)
 {
-    if (n == 1)
-    {
-        rec->is_front_face = vec_dot(r->dir, rec->normal) < 0;
-        rec->normal = (rec->is_front_face) ? rec->normal : vec_mul_const(rec->normal, -1);
-    }
-    else if (n == 2)
-    {
-        rec->is_front_face = vec_dot(r->dir, rec->normal) < 0;
-        rec->normal = (rec->is_front_face) ? vec_mul_const(rec->normal, -1) : rec->normal;
-    }
+    rec->is_front_face = vec_dot(r->dir, rec->normal) < 0;
+    rec->normal = (rec->is_front_face) ? rec->normal : vec_mul_const(rec->normal, -1);
 }
 
 int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
@@ -84,8 +76,8 @@ int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 		if (s.root < rec->t_min || s.root > rec->t_max)
 			return (FALSE);
 	}
-    if ((-s.half_b + s.sqrtd) < rec->t_min 
-        || (-s.half_b - s.sqrtd) < rec->t_min)
+    if ((-s.half_b + s.sqrtd) / s.a < rec->t_min 
+        || (-s.half_b - s.sqrtd) / s.a < rec->t_min)
         return (FALSE);
     // 그림자 계산 . 자신과 겹쳤을때
     
@@ -97,16 +89,6 @@ int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
     rec->p = ray_at(r, s.root);
     rec->color = sp->color;
     rec->normal = vec_unit(vec_sub(rec->p, sp->center));
-    // rec->normal = vec_div_const(vec_sub(rec->p, sp->center), sp->radius);
-	set_face_normal(r, rec, TRUE);
+	// set_face_normal(r, rec);
     return (TRUE);
-    // if (discriminant < 0)
-    //     return (-1.0);
-    // else
-    // {
-    //     c = (-b - sqrt(discriminant)) / (2.0 * a);
-    //     if (c < 0)
-    //         c = (-b + sqrt(discriminant)) / (2.0 * a);
-    //     return (c);
-    // }
 }
