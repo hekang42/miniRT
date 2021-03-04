@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:15:37 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/22 14:38:41 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/04 11:18:20 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int         triangle_hit(void *obj, t_ray *r, t_hit_record *rec)
     rec->color = tr->color;
     rec->p = ray_at(r, rec->t);
     rec->normal = vec_unit(vec_cross(v0v1, v0v2));
-	set_face_normal(r, rec, TRUE);
+	// set_face_normal(r, rec, TRUE);
     rec->p = vec_add(rec->p, vec_mul_const(rec->normal, 0.0000001));
 
     // printf( "\n\n 11\n");

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/19 10:42:56 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/04 15:35:24 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,8 @@ typedef struct      s_cy_set
     double          discriminant;
     double          root;
     t_vec           *cp;
+    double          t1;
+    double          t2;
 }                   t_cy_set;
 
 #endif

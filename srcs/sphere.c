@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/26 16:16:07 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/04 17:29:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 		if (s.root < rec->t_min || s.root > rec->t_max)
 			return (FALSE);
 	}
-    if ((-s.half_b + s.sqrtd) / s.a < rec->t_min 
-        || (-s.half_b - s.sqrtd) / s.a < rec->t_min)
-        return (FALSE);
+    // if ((-s.half_b + s.sqrtd) / s.a < rec->t_min 
+    //     || (-s.half_b - s.sqrtd) / s.a < rec->t_min)
+    //     return (FALSE);
     // 그림자 계산 . 자신과 겹쳤을때
     
     // printf("radius: %f\n", sp->radius );
