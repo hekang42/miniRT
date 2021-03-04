@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:14:55 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/22 15:26:05 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/04 21:33:34 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ t_hittable          *hittable_create(void *obj, int obj_type)
         result->hit = &cylinder_hit;
     else if (obj_type == OBJ_CYLINDER_2)
         result->hit = &cylinder_hit_2;
+    else if (obj_type == OBJ_CYLINDER_CAP)
+        result->hit = &cylinder_hit_top_cap;
+    else if (obj_type == OBJ_CYLINDER_CAP_2)
+        result->hit = &cylinder_hit_bottom_cap;
     else if (obj_type == OBJ_TRIANGLE)
         result->hit = &triangle_hit;
     return (result);

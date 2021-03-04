@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:11:19 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 16:08:57 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/04 21:01:20 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int     parse_cylinder(t_scene *scene, char *line)
     s = ft_split(line, ' ');
     if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || !s[5] || s[6])
     {
-        printf("ERROR : Init Triangle\n");
+        printf("ERROR : Init Cylinder\n");
         return (0);
     }
     cy = (t_cylinder *)malloc(sizeof(t_cylinder));

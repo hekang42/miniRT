@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/26 15:02:37 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/04 21:34:08 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define OBJ_SQUARE 4
 # define OBJ_CYLINDER 5
 # define OBJ_CYLINDER_2 6
+# define OBJ_CYLINDER_CAP 7
+# define OBJ_CYLINDER_CAP_2 8
 # define ANTI_SAMPLES 50
 # define REFLECT_DEPTH 5
 # define X_KEY_PRESS 2
@@ -109,6 +111,7 @@ int     parse_sphere(t_scene *scene, char *line);
 int     parse_triangle(t_scene *scene, char *line);
 int     parse_square(t_scene *scene, char *line);
 int     parse_cylinder(t_scene *scene, char *line);
+int     parse_cylinder_2(t_scene *scene, char *line);
 
 
 t_list          *init_camlst();
@@ -123,6 +126,8 @@ int     in_shadow(t_scene *scene, t_hit_record *rec);
 int             square_hit(void *obj, t_ray *r, t_hit_record *rec);
 int             cylinder_hit(void *obj, t_ray *r, t_hit_record *rec);
 int             cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec);
+int             cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec);
+int             cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec);
 
 
 #endif
