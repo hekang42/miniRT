@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 17:29:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/05 11:15:44 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
     if (s.discriminant < 0.00001)
         return (FALSE);
     s.sqrtd = sqrt(s.discriminant);
-    s.root = (-s.half_b + s.sqrtd) / s.a;
+    s.root = (-s.half_b - s.sqrtd) / s.a;
   	if (s.root < rec->t_min || s.root > rec->t_max)
 	{
-		s.root = (-s.half_b - s.sqrtd) / s.a;
+		s.root = (-s.half_b + s.sqrtd) / s.a;
 		if (s.root < rec->t_min || s.root > rec->t_max)
 			return (FALSE);
 	}
-    // if ((-s.half_b + s.sqrtd) / s.a < rec->t_min 
-    //     || (-s.half_b - s.sqrtd) / s.a < rec->t_min)
-    //     return (FALSE);
+    if ((-s.half_b + s.sqrtd) / s.a < rec->t_min 
+        || (-s.half_b - s.sqrtd) / s.a < rec->t_min)
+        return (FALSE);
     // 그림자 계산 . 자신과 겹쳤을때
     
     // printf("radius: %f\n", sp->radius );
@@ -87,8 +87,9 @@ int         sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
     // printf("color z: %f\n", sp->color->z );
     rec->t = s.root;
     rec->p = ray_at(r, s.root);
-    rec->color = sp->color;
     rec->normal = vec_unit(vec_sub(rec->p, sp->center));
+    // rec->p = vec_sub(rec->p, vec_mul_const(rec->normal, 0.00001));
+    rec->color = sp->color;
 	// set_face_normal(r, rec);
     return (TRUE);
 }

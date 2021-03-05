@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:11:19 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 21:01:20 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/05 14:12:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int     parse_plane(t_scene *scene, char *line)
     tmp = ft_split(s[1], ',');
     origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
     tmp = ft_split(s[2], ',');
-    normal = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
+    normal = vec_unit(vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2])));
     tmp = ft_split(s[3], ',');
     color = vec_create(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]));
     hitlst_add(scene->obj, (void *)init_plane(origin, normal, color), OBJ_PLANE);
@@ -52,7 +52,7 @@ int     parse_sphere(t_scene *scene, char *line)
     }
     tmp = ft_split(s[1], ',');
     origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
-    radius = ft_atod(s[2]);
+    radius = ft_atod(s[2]) / 2;
     tmp = ft_split(s[3], ',');
     color = vec_create(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]));
     hitlst_add(scene->obj, (void *)init_sphere(origin, radius, color), OBJ_SPHERE);
@@ -100,7 +100,7 @@ int     parse_square(t_scene *scene, char *line)
     tmp = ft_split(s[1], ',');
     sq->origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
     tmp = ft_split(s[2], ',');
-    sq->normal = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
+    sq->normal = vec_unit(vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2])));
     sq->size = ft_atod(s[3]);
     tmp = ft_split(s[4], ',');
     sq->color = vec_create(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]));
@@ -124,7 +124,7 @@ int     parse_cylinder(t_scene *scene, char *line)
     tmp = ft_split(s[1], ',');
     cy->origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
     tmp = ft_split(s[2], ',');  
-    cy->normal = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
+    cy->normal = vec_unit(vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2])));
     cy->diameter = ft_atod(s[4]);
     cy->height = ft_atod(s[5]);
     tmp = ft_split(s[3], ',');

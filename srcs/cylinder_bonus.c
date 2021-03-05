@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:03:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 21:34:18 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/05 10:28:06 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int             cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
     t_vec           *oc;
     double          t;
     t_vec           *c;
+    t_vec           *p;
 
     cy = (t_cylinder *)obj;
     cy->normal = vec_unit(cy->normal);
@@ -50,9 +51,10 @@ int             cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
     t = vec_dot(oc, cy->normal) / denominator;
     if (t < rec->t_min || t > rec->t_max)
         return (FALSE);
-    rec->p = ray_at(r, t);
-    if (draw_circle(vec_sub(rec->p, c), cy->diameter / 2, cy->normal))
+    p = ray_at(r, t);
+    if (draw_circle(vec_sub(p, c), cy->diameter / 2, cy->normal))
     {
+        rec->p = p;
         rec->t = t;
         rec->normal = vec_unit(cy->normal);
         rec->color = cy->color;
@@ -68,6 +70,7 @@ int             cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec)
     t_vec           *oc;
     double          t;
     t_vec           *c;
+    t_vec           *p;
 
     cy = (t_cylinder *)obj;
     cy->normal = vec_unit(cy->normal);
@@ -79,9 +82,10 @@ int             cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec)
     t = vec_dot(oc, cy->normal) / denominator;
     if (t < rec->t_min || t > rec->t_max)
         return (FALSE);
-    rec->p = ray_at(r, t);
-    if (draw_circle(vec_sub(rec->p, c), cy->diameter / 2, cy->normal))
+    p = ray_at(r, t);
+    if (draw_circle(vec_sub(p, c), cy->diameter / 2, cy->normal))
     {
+        rec->p = p;
         rec->t = t;
         rec->normal = vec_unit(cy->normal);
         rec->color = cy->color;

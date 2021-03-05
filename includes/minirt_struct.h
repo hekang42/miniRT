@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 15:35:24 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/05 14:17:09 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct      s_plane
 {
     t_vec           *p;
     t_vec           *normal;
-    t_vec           *albedo;
+    t_vec           *color;
 }                   t_plane;
 
 typedef struct      s_ray

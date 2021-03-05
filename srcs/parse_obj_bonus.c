@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:00:52 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 21:33:18 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/05 14:10:00 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int     parse_cylinder_2(t_scene *scene, char *line)
     tmp = ft_split(s[1], ',');
     cy->origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
     tmp = ft_split(s[2], ',');  
-    cy->normal = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
+    cy->normal = vec_unit(vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2])));
     cy->diameter = ft_atod(s[4]);
     cy->height = ft_atod(s[5]);
     tmp = ft_split(s[3], ',');
