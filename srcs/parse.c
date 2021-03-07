@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 21:21:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:30:00 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ t_scene        *parse(char *rt_file)
     t_scene     *scene;
 
     scene = init_scene();
-    scene->obj = hitlst_new();
-    scene->cam = init_camlst();
+    scene->obj = init_list();
+    scene->cam = init_list();
+    scene->light = init_list();
     fd = open(rt_file, O_RDONLY);
     if (fd < 0)
     {

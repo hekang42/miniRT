@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:52:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/19 15:16:50 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:26:52 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int     parse_camera(t_scene *scene, char *line)
     }
     scene->n_cam++;
     from = vec_create(ft_atoi(lookfrom[0]), ft_atoi(lookfrom[1]), ft_atoi(lookfrom[2]));
-    printf("\nx : %f / y : %f / z : %f \n", from->x, from->y , from->z);
-    printf("n_cam : %d \n", scene->n_cam);
     normal = vec_create(ft_atod(looknormal[0]), ft_atod(looknormal[1]), ft_atod(looknormal[2]));
     camlst_add(scene, init_cam(scene, from, normal, ft_atod(s[3]) * PI / 180.0));
     return (1);
@@ -84,6 +82,7 @@ int     parse_light(t_scene *scene, char *line)
     ratio = ft_atod(s[2]);
     vec_tmp = ft_split(s[3], ',');
     color = vec_create(ft_atoi(vec_tmp[0]), ft_atoi(vec_tmp[1]), ft_atoi(vec_tmp[2]));
-    scene->light = init_light(origin, ratio, color);
+    lightlst_add(scene->light, origin, ratio, color);
+    // scene->light = init_light(origin, ratio, color);
     return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/05 14:17:09 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:27:07 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ typedef struct      s_scene
     t_img_data      *img;
     t_list          *cam;
     t_ambient       *ambient;
-    t_light         *light;
+    t_list          *light;
     t_list          *obj;
     int             n_cam;
 }                   t_scene;

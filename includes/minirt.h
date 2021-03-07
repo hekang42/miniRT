@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/04 21:34:08 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:29:46 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void            mlx_show(t_vars vars, t_mlx_data *img, t_img_data *data);
 void                *free_img_data(t_img_data *data);
 t_camera        *camera_locate(double aspect_ratio);
 void                free_camera(t_camera *cam);
-t_list          *hitlst_new(void);
 t_sphere        *init_sphere(t_vec *center, double radius, t_vec *color);
 //t_sphere        *init_sphere(t_vec *center, double diameter, t_vec *color);
 void            hitlst_add(t_list *lst, void *obj, int obj_type);
@@ -114,7 +113,7 @@ int     parse_cylinder(t_scene *scene, char *line);
 int     parse_cylinder_2(t_scene *scene, char *line);
 
 
-t_list          *init_camlst();
+t_list          *init_list();
 void            camlst_add(t_scene *scene, t_camera *cam);
 void        mlx_draw_by_img_data(t_mlx_data *mlx_data, t_img_data *img_data);
 t_ray               *camera_get_ray(t_camera *cam, double u, double v);

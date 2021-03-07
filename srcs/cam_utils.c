@@ -6,21 +6,11 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:26:06 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/05 16:31:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:27:52 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_list          *init_camlst()
-{
-    t_list      *result;
-
-    result = (t_list *)malloc(sizeof(t_list));
-    result->content = NULL;
-    result->next = NULL;
-    return (result);
-}
 
 void            camlst_add(t_scene *scene, t_camera *cam)
 {
@@ -33,7 +23,7 @@ void            camlst_add(t_scene *scene, t_camera *cam)
     {
         while (cnt--)
             scene->cam = scene->cam->next;
-        scene->cam->next = init_camlst();
+        scene->cam->next = init_list();
         scene->cam->next->content = cam;
         scene->cam->next->next = begin;
     }
