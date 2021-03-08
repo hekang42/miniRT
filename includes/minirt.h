@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/06 13:29:46 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/08 11:51:45 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ t_vec		*vec_add(t_vec *a, t_vec *b);
 t_vec		*vec_sub(t_vec *a, t_vec *b);
 t_vec		*vec_mul_const(t_vec *a, double c);
 t_vec		*vec_div_const(t_vec *a, double c);
-t_vec		*vec_reflect(t_vec *v, t_vec *n);
+t_vec 		*vec_mul_each(t_vec *a, t_vec *b);
+
 double      vec_dot(t_vec *u, t_vec *v);
 double      vec_len(t_vec *u);
 double      vec_len_sqrt(t_vec *u);
@@ -80,7 +81,7 @@ int         hitlst_hit(t_list *lst, t_hit_record *rec);
 
 void			hit_set_normal(t_hit_record *record, t_ray *r);
 void				draw_hittable(t_scene *scene);
-void	color_map(void *mlx, void *win,int w,int h);
+void	    color_map(void *mlx, void *win,int w,int h);
 
 t_vec       *ray_at(t_ray *ray, double t);
 t_ray       *create_ray(t_vec *origin, t_vec *direction);
@@ -121,12 +122,17 @@ int                 cal_hittable_color(t_scene *scene, t_hit_record *rec);
 int         triangle_hit(void *obj, t_ray *r, t_hit_record *rec);
 void	set_face_normal(t_ray *r, t_hit_record *rec);
 t_vec 	*clamp_vec(t_vec *vec, double min, double max);
-int     in_shadow(t_scene *scene, t_hit_record *rec);
+int     in_shadow(t_scene *scene, t_light *light, t_hit_record *rec);
+// int     in_shadow(t_scene *scene, t_hit_record *rec);
 int             square_hit(void *obj, t_ray *r, t_hit_record *rec);
 int             cylinder_hit(void *obj, t_ray *r, t_hit_record *rec);
 int             cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec);
 int             cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec);
 int             cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec);
+int             lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec);
+void        lightlst_add(t_list *lst, t_vec *ori, double ratio, t_vec *color);
+
+
 
 
 #endif

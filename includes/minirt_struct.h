@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/06 13:27:07 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/08 17:13:18 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,12 @@ typedef struct      s_cy_set
     double          t1;
     double          t2;
 }                   t_cy_set;
+
+typedef struct      s_frame_saver
+{
+    unsigned char   *buf;
+    size_t          index;
+    size_t          size;
+}                   t_frame_saver;
 
 #endif

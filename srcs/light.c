@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:33:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/06 13:27:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/08 10:20:00 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void        lightlst_add(t_list *lst, t_vec *ori, double ratio, t_vec *color)
     {
         while (lst->next)
             lst = lst->next;
-        lst->next = init_lightlst();
+        lst->next = init_list();
         lst = lst->next;
     }
     lst->content = init_light(ori, ratio, color);

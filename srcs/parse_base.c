@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:52:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/06 13:26:52 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/08 14:58:59 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,21 @@
 int     parse_resolution(t_scene *scene, char *line)
 {
     char    **s;
+    int     x;
+    int     y;
 
+    x = 0;
+    y = 0;
+    mlx_get_screen_size(0, &x, &y);
     s = ft_split(line, ' ');
     if (ft_atoi(s[1]) && ft_atoi(s[2]) && !s[3])
-        scene->img = create_img_data(ft_atoi(s[1]), ft_atoi(s[2]));
+    {
+        if (ft_atoi(s[1]) < x)
+            x = ft_atoi(s[1]);
+        if (ft_atoi(s[2]) < y)
+            y = ft_atoi(s[2]);
+        scene->img = create_img_data(x, y);
+    }
     else
     {
         printf("ERROR : Init RESOLUTION\n");
@@ -83,6 +94,5 @@ int     parse_light(t_scene *scene, char *line)
     vec_tmp = ft_split(s[3], ',');
     color = vec_create(ft_atoi(vec_tmp[0]), ft_atoi(vec_tmp[1]), ft_atoi(vec_tmp[2]));
     lightlst_add(scene->light, origin, ratio, color);
-    // scene->light = init_light(origin, ratio, color);
     return (1);
 }
