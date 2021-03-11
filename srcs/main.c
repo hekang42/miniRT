@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:08:25 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/08 16:22:39 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 09:35:59 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
     if (argc == 3)
     {
-        if (!ft_strcmp(argv[2], "--save"))
+        if (!ft_strnstr(argv[2], "--save", 6))
         //     save_bmp;
         //     // argc = 1;
         // else
@@ -74,7 +74,6 @@ int main(int argc, char *argv[])
         printf("ERROR : Input Argument\n");
         return (0);
     }
-    argc = 1;
     scene = parse(argv[1]);
     n = 0;
     draw_hittable(scene);
@@ -88,9 +87,13 @@ int main(int argc, char *argv[])
     g_vars = vars;
     g_img = img;
     g_scene = scene;
-    scene->img = img;
     if (argc == 3)
-        save_bmp(scene, 0);
+    {
+        printf("starting save bmp\n");
+        save_first_frame(scene, "minirt.bmp");
+        printf("Complete save bmp\n");
+    }
+
     mlx_show(vars, img, data);
     mlx_hook(vars.win, X_KEY_PRESS, 0, mlx_key_handle, 0);
     mlx_mouse_hook(vars.win, mouse_button_handle, 0);

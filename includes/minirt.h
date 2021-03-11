@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/08 11:51:45 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 09:15:07 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int             cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec);
 int             cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec);
 int             lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec);
 void        lightlst_add(t_list *lst, t_vec *ori, double ratio, t_vec *color);
+int		save_first_frame(t_scene *s, char *filename);
 
 
 

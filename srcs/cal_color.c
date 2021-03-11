@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:48:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/08 14:25:57 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/09 11:03:29 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@
 t_vec               *diffuse_color(t_light *light, t_hit_record *rec)
 {
     t_vec           *color;
-    double          kd;
     t_vec           *L;
     t_vec           *N;
 
-    kd = light->ratio;
     L = vec_unit(vec_sub(light->origin, rec->p));
     N = rec->normal;
     color = vec_mul_const(light->color, 
-        vec_dot(L, N) * light->ratio * kd);
+        vec_dot(L, N) * light->ratio);
     return (vec_div_const(clamp_vec(color, 0, 255), 255.0));
 }
 

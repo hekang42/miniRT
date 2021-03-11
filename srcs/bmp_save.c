@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 15:13:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/08 17:20:10 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 09:41:50 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    write_int(t_frame_saver *sv, unsigned int val)
 ** null (2o)
 ** 54,0,0,0 (4o)
 */
-void    write_file_header(t_scene *s, t_frame_saver *sv)
+void    write_file_header(t_frame_saver *sv)
 {
     sv->buf[sv->index++] = 'B';
     sv->buf[sv->index++] = 'M';
@@ -66,25 +66,30 @@ void	write_body(t_scene *s, t_frame_saver *sv)
 {
 	int x;
 	int y;
+	t_img_data *img;
 
-	y = s->img->height - 1;
-	while (y >= 0)
+    img = ((t_camera *)(s->cam->content))->data;
+	// y = img->height - 1;
+	y = 0;
+	// while (y >= 0)
+	while (y < img->height)
 	{
 		x = 0;
-		while (x < s->img->width)
+		while (x < img->width)
 		{
-			sv->buf[sv->index++] = s->img[y * s->screen_sz.x + x] >> 0;
-			sv->buf[sv->index++] = s->img[y * s->screen_sz.x + x] >> 8;
-			sv->buf[sv->index++] = s->img[y * s->screen_sz.x + x] >> 16;
+			sv->buf[sv->index++] = img->img[x][y] >> 0;
+			sv->buf[sv->index++] = img->img[x][y] >> 8;
+			sv->buf[sv->index++] = img->img[x][y] >> 16;
 			x++;
 		}
 		x = 0;
-		while (x < (4 - (s->screen_sz.x * 3) % 4) % 4)
+		while (x < (4 - (img->width * 3) % 4) % 4)
 		{
 			sv->buf[sv->index++] = 0;
 			x++;
 		}
-		y--;
+		// y--;
+		y++;
 	}
 }
 
@@ -93,17 +98,20 @@ int		save_first_frame(t_scene *s, char *filename)
 	int				fd;
 	t_frame_saver	sv;
 
-	render(s);
+	// render(s);
 	sv = (t_frame_saver) { 0 };
 	sv.size = 54 + 3 * s->img->width * s->img->height +
 		((4 - (s->img->width * 3) % 4) % 4) * s->img->height;
 	sv.buf = malloc(sv.size);
 	if ((fd = open(filename, O_WRONLY | O_CREAT)) < 0)
 		return (0);
-	write_file_header(s, &sv);
+	write_file_header(&sv);
 	write_file_info(s, &sv);
+	printf("1\n");
 	write_body(s, &sv);
+	printf("2\n");
 	write(fd, sv.buf, sv.size);
+	printf("3\n");
 	close(fd);
 	return (1);
 }
