@@ -6,24 +6,23 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 15:26:12 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/17 16:24:17 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 14:06:56 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-
-t_hit_record        *hit_record_new(void)
+t_hit_record	*hit_record_new(void)
 {
-    t_hit_record    *result;
-    
-    result = (t_hit_record *)malloc(sizeof(t_hit_record));
-    result->normal = NULL;
-    result->p = NULL;
+	t_hit_record	*result;
+
+	result = (t_hit_record *)malloc(sizeof(t_hit_record));
+	result->normal = NULL;
+	result->p = NULL;
 	result->t_min = HIT_T_MIN;
 	result->t_max = INFINITY;
 	result->color = NULL;
-    return (result);
+	return (result);
 }
 
 void			reset_hit_record(t_hit_record *rec)

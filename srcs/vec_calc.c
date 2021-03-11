@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 10:03:31 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/08 13:41:59 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 12:02:01 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_vec		*vec_div_const(t_vec *a, double c)
 	return (result);
 }
 
-t_vec 		*vec_mul_each(t_vec *a, t_vec *b)
+t_vec		*vec_mul_each(t_vec *a, t_vec *b)
 {
 	t_vec	*result;
 

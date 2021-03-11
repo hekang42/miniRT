@@ -6,53 +6,43 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 21:01:34 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/22 13:31:07 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:43:23 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double      vec_dot(t_vec *u, t_vec *v)
+double		vec_dot(t_vec *u, t_vec *v)
 {
-    return (u->x * v->x + u->y * v->y + u->z * v->z);
+	return (u->x * v->x + u->y * v->y + u->z * v->z);
 }
 
-t_vec       *vec_cross(t_vec *u, t_vec *v)
+t_vec		*vec_cross(t_vec *u, t_vec *v)
 {
-    t_vec   *result;
+	t_vec	*result;
 
-    result = (t_vec *)malloc(sizeof(t_vec));
-    result->x = u->y * v->z - u->z * v->y;
-    result->y = u->z * v->x - u->x * v->z;
-    result->z = u->x * v->y - u->y * v->x;
-    return (result);
+	result = (t_vec *)malloc(sizeof(t_vec));
+	result->x = u->y * v->z - u->z * v->y;
+	result->y = u->z * v->x - u->x * v->z;
+	result->z = u->x * v->y - u->y * v->x;
+	return (result);
 }
 
-double      vec_len(t_vec *u)
+double		vec_len(t_vec *u)
 {
-    return (sqrt(vec_len_sqrt(u)));
+	return (sqrt(vec_len_sqrt(u)));
 }
 
-double      vec_len_sqrt(t_vec *u)
+double		vec_len_sqrt(t_vec *u)
 {
-    return (pow(u->x, 2.0) + pow(u->y, 2.0) + pow(u->z, 2.0));
+	return (pow(u->x, 2.0) + pow(u->y, 2.0) + pow(u->z, 2.0));
 }
 
-t_vec       *vec_unit(t_vec *u)
+t_vec		*vec_unit(t_vec *u)
 {
-    t_vec   *result;
+	t_vec	*result;
 
-    result = (t_vec *)malloc(sizeof(t_vec));
-    result = vec_div_const(u, vec_len(u));
-    return (result);
-}
-int			vec_is_parallel(t_vec *a, t_vec *b)
-{
-	double	dot;
-	double	length;
-
-	dot = vec_dot(a, b);
-	dot = ((dot < 0) ? (-1 * dot) : dot);
-	length = vec_len(a) * vec_len(b);
-	return ((dot == length) ? TRUE : FALSE);
+	result = (t_vec *)malloc(sizeof(t_vec));
+	result = vec_div_const(u, vec_len(u));
+	return (result);
 }

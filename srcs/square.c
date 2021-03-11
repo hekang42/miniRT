@@ -6,58 +6,53 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:59:16 by hekang            #+#    #+#             */
-/*   Updated: 2021/02/26 13:37:52 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 14:05:42 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int             vec_each_len(t_vec *a, double l, t_vec *n)
+int				vec_each_len(t_vec *a, double l, t_vec *n)
 {
-    t_vec       *n_x;
-    t_vec       *n_y;
-    t_vec       *vup;
-    t_vec       len;
+	t_vec		*n_x;
+	t_vec		*n_y;
+	t_vec		*vup;
+	t_vec		len;
 
-    vup = vec_create(1, 0, 0);
-    if (vec_is_parallel(vup, n))
-        vup = vec_create(0, 1, 0);
-    n_x = vec_unit(vec_cross(vup, n));
-    n_y = vec_unit(vec_cross(n, n_x));
-    len.x = fabs(vec_dot(a, n_x));
-    len.y = fabs(vec_dot(a, n_y));
-    if ((len.x <= l) && (len.y <= l))
-        return (TRUE);
-    return (FALSE);
+	vup = vec_create(1, 0, 0);
+	if (vec_is_parallel(vup, n))
+		vup = vec_create(0, 1, 0);
+	n_x = vec_unit(vec_cross(vup, n));
+	n_y = vec_unit(vec_cross(n, n_x));
+	len.x = fabs(vec_dot(a, n_x));
+	len.y = fabs(vec_dot(a, n_y));
+	if ((len.x <= l) && (len.y <= l))
+		return (TRUE);
+	return (FALSE);
 }
 
-int             square_hit(void *obj, t_ray *r, t_hit_record *rec)
+int				square_hit(void *obj, t_ray *r, t_hit_record *rec)
 {
-    double      denominator; //분모
-    t_square    *sq;
-    t_vec       *oc;
-    double      t;
+	double		denominator;
+	t_square	*sq;
+	t_vec		*oc;
+	double		t;
 
-    sq = ((t_square *)obj);
-    denominator = vec_dot(sq->normal, r->dir);
-    if (fabs(denominator) < 0.000001)
-        return (FALSE); 
-    oc = vec_sub(sq->origin, r->orig);
-    t = vec_dot(oc, sq->normal) / denominator;
-    if (t < rec->t_min || t > rec->t_max)
-        return (FALSE);
-    rec->p = ray_at(r, t);
-    /*
-        사각형 
-        법선벡터와 수직하는 평면을 구하고
-        중심점에서 각 축(xyz)의 길이의 합이 사이즈 / 2 인 점들.
-    */
-    if (vec_each_len(vec_sub(rec->p, sq->origin), sq->size / 2, sq->normal))
-    {
-        rec->t = t;
-        rec->normal = vec_unit(sq->normal);
-        rec->color = sq->color;
-        return (TRUE);
-    }
-    return (FALSE);
+	sq = ((t_square *)obj);
+	denominator = vec_dot(sq->normal, r->dir);
+	if (fabs(denominator) < 0.000001)
+		return (FALSE);
+	oc = vec_sub(sq->origin, r->orig);
+	t = vec_dot(oc, sq->normal) / denominator;
+	if (t < rec->t_min || t > rec->t_max)
+		return (FALSE);
+	rec->p = ray_at(r, t);
+	if (vec_each_len(vec_sub(rec->p, sq->origin), sq->size / 2, sq->normal))
+	{
+		rec->t = t;
+		rec->normal = vec_unit(sq->normal);
+		rec->color = sq->color;
+		return (TRUE);
+	}
+	return (FALSE);
 }

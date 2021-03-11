@@ -6,208 +6,203 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/08 17:13:18 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/11 16:41:22 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_STRUCT_H
 # define MINIRT_STRUCT_H
 
-# define DIFFUSE 0
-# define METAL 1
+# include "libft.h"
 
-# define SP 0
-# define LIGHT 1
-# define PL	2
-# define SQ 3
-# define CY 4
-# define TR 5
-# define CB 6
-# define PM 7
-# define CAM 11
-
-#include "libft.h"
-
-typedef struct      s_img_data
+typedef struct		s_img_data
 {
-    int             **img;
-    int             width;
-    int             height;
-}                   t_img_data;
+	int				**img;
+	int				width;
+	int				height;
+}					t_img_data;
 
-typedef struct      s_vec
+typedef struct		s_vec
 {
-    double          x;
-    double          y;
-    double          z;
-}                   t_vec;
+	double			x;
+	double			y;
+	double			z;
+}					t_vec;
 
-typedef struct      s_camera
+typedef struct		s_camera
 {
-    t_img_data      *data;
-    t_vec           *origin;
-    t_vec           *lower_left_corner;
-    t_vec           *horizontal;
-    t_vec           *vertical;
-    t_vec           *normal;
-    double          fov;
-}                   t_camera;
+	t_img_data		*data;
+	t_vec			*origin;
+	t_vec			*lower_left_corner;
+	t_vec			*horizontal;
+	t_vec			*vertical;
+	t_vec			*normal;
+	double			fov;
+}					t_camera;
 
-typedef struct      s_sphere
+typedef struct		s_sphere
 {
-    t_vec           *center;
-    double          radius;
-    t_vec           *color;
-}                   t_sphere;
+	t_vec			*center;
+	t_vec			*color;
+	double			radius;
+}					t_sphere;
 
 typedef struct		s_sp_set
 {
-	t_vec		*oc;
-	double		a;
-	double		half_b;
-	double		c;
-	double		discriminant;
-	double		sqrtd;
-	double		root;
-}                   t_sp_set;
+	t_vec			*oc;
+	double			a;
+	double			half_b;
+	double			c;
+	double			discriminant;
+	double			sqrtd;
+	double			root;
+}					t_sp_set;
 
-typedef struct      s_plane
+typedef struct		s_plane
 {
-    t_vec           *p;
-    t_vec           *normal;
-    t_vec           *color;
-}                   t_plane;
+	t_vec			*p;
+	t_vec			*normal;
+	t_vec			*color;
+}					t_plane;
 
-typedef struct      s_ray
+typedef struct		s_ray
 {
-    t_vec           *orig;
-    t_vec           *dir;
-}                   t_ray;
+	t_vec			*orig;
+	t_vec			*dir;
+}					t_ray;
 
-typedef struct		    s_material
+typedef struct		s_hit_record
 {
-	int             	type;
-    t_vec               *color;
-	double  			option1;
-}                       t_material;
+	t_vec			*p;
+	t_vec			*normal;
+	t_vec			*color;
+	t_ray			*ray;
+	int				*obj;
+	double			t_min;
+	double			t_max;
+	double			t;
+	int				is_front_face;
+}					t_hit_record;
 
-typedef struct          s_hit_record
+typedef struct		s_hittable
 {
-    t_vec               *p;
-    t_vec               *normal;
-	int            	    *obj;
-	// t_material	        *material;
-    t_vec               *color;
-    t_ray               *ray;
-    double              t_min;
-    double              t_max;
-    double              t;
-    int                 is_front_face;
-}                       t_hit_record;
+	void			*obj;
+	int				obj_type;
+	int				(*hit)(void *s, t_ray *r, t_hit_record *);
+}					t_hittable;
 
-
-// typedef struct          s_hitlst_info
-// {
-//     t_ray               *ray;
-//     double              t_min;
-//     double              t_max;
-//     double              a;
-//     double              b;
-//     double              root_d;
-//     t_hit_record        *rec;
-// }                       t_hitlst_info;
-
-typedef struct      s_hittable
+typedef struct		s_mlx_data
 {
-    void            *obj;
-    int             obj_type;
-    int             (*hit)(void *s, t_ray *r, t_hit_record *);
-}                   t_hittable;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}					t_mlx_data;
 
-typedef struct			s_mlx_data
+typedef struct		s_vars
 {
-	void				*img;
-	char				*addr;
-	int					bits_per_pixel;
-	int					line_length;
-	int					endian;
-}						t_mlx_data;
+	void			*mlx;
+	void			*win;
+}					t_vars;
 
-typedef struct      s_vars
+typedef struct		s_light
 {
-    void            *mlx;
-    void            *win;
-}                   t_vars;
+	t_vec			*origin;
+	double			ratio;
+	t_vec			*color;
+	double			a_ratio;
+	t_vec			*a_color;
+}					t_light;
 
-typedef struct      s_light
+typedef struct		s_ambient
 {
-    t_vec           *origin;
-    double          ratio;
-    t_vec           *color;
-    double          a_ratio;
-    t_vec           *a_color;
-}                   t_light;
+	double			ratio;
+	t_vec			*color;
+}					t_ambient;
 
-typedef struct      s_ambient
+typedef struct		s_scene
 {
-    double           ratio;
-    t_vec           *color;
-}                   t_ambient;
+	t_img_data		*img;
+	t_ambient		*ambient;
+	t_list			*cam;
+	t_list			*light;
+	t_list			*obj;
+	int				n_cam;
+}					t_scene;
 
-typedef struct      s_scene
+typedef struct		s_triangle
 {
-    t_img_data      *img;
-    t_list          *cam;
-    t_ambient       *ambient;
-    t_list          *light;
-    t_list          *obj;
-    int             n_cam;
-}                   t_scene;
+	t_vec			*p0;
+	t_vec			*p1;
+	t_vec			*p2;
+	t_vec			*color;
+}					t_triangle;
 
-typedef struct      s_triangle
+typedef struct		s_tri_set
 {
-    t_vec           *p0;
-    t_vec           *p1;
-    t_vec           *p2;
-    t_vec           *color;
-}                   t_triangle;
+	t_vec			*v0v1;
+	t_vec			*v0v2;
+	t_vec			*pvec;
+	t_vec			*tvec;
+	t_vec			*qvec;
+	double			det;
+	double			invdet;
+}					t_tri_set;
 
-typedef struct      s_square
+typedef struct		s_square
 {
-    t_vec           *origin;
-    t_vec           *normal;
-    double          size;
-    t_vec           *color;
-    t_vec           *p1;
-    t_vec           *p2;
-}                   t_square;
+	t_vec			*origin;
+	t_vec			*normal;
+	t_vec			*color;
+	t_vec			*p1;
+	t_vec			*p2;
+	double			size;
+}					t_square;
 
-typedef struct      s_cylinder
+typedef struct		s_cylinder
 {
-    t_vec           *origin;
-    t_vec           *normal;
-    double          diameter;
-    double          height;
-    t_vec           *color;
-}                   t_cylinder;
+	t_vec			*origin;
+	t_vec			*normal;
+	t_vec			*color;
+	double			diameter;
+	double			height;
+}					t_cylinder;
 
-typedef struct      s_cy_set
+typedef struct		s_cy_set
 {
-    double          a;
-    double          b;
-    double          c;
-    double          discriminant;
-    double          root;
-    t_vec           *cp;
-    double          t1;
-    double          t2;
-}                   t_cy_set;
+	double			a;
+	double			b;
+	double			c;
+	double			discriminant;
+	double			root;
+	double			t1;
+	double			t2;
+	t_vec			*cp;
+}					t_cy_set;
 
-typedef struct      s_frame_saver
+typedef struct		s_frame_saver
 {
-    unsigned char   *buf;
-    size_t          index;
-    size_t          size;
-}                   t_frame_saver;
+	unsigned char	*buf;
+	size_t			index;
+	size_t			size;
+}					t_frame_saver;
 
+typedef struct		s_draw_var
+{
+	int				x;
+	int				y;
+	double			u;
+	double			v;
+	int				n;
+}					t_draw_var;
+
+typedef struct		s_specular_var
+{
+	t_vec			*r;
+	t_vec			*v;
+	t_vec			*l;
+	t_vec			*l_rev;
+	double			reflection;
+}					t_specular_var;
 #endif
