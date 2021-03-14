@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:08:25 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 23:00:14 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 08:57:42 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int				change_camera(void)
 {
 	t_img_data *data;
 
-	g_img_list = g_img_list->next;
+	if (g_img_list->next)
+		g_img_list = g_img_list->next;
 	data = g_img_list->content;
 	mlx_draw_by_img_data(g_img, data);
 	mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_img->img, 0, 0);
@@ -55,7 +56,7 @@ int				**create_img(int width, int height)
 	int			**result;
 	int			w;
 	int			h;
-	
+
 	w = -1;
 	result = (int **)malloc(sizeof(int *) * width);
 	while (++w < width)
@@ -68,39 +69,48 @@ int				**create_img(int width, int height)
 	return (result);
 }
 
-t_list			*dup_img(t_scene *scene)
+void			imglst_add(t_scene *scene, t_list *lst)
 {
-	t_list		*result;
-	// t_img_data	*result;
-	int			i;
 	t_img_data	*img;
 	int			x;
 	int			y;
+	t_list		*begin;
 
-	i = 0;
 	img = create_img_data(scene->img->width, scene->img->height);
-	img->height = scene->img->height;
-	img->width = scene->img->width;
-	result = init_list();
-	while (scene->cam)
+	printf("count cam : 1\n");
+	begin = lst;
+	y = scene->img->height;
+	while (--y >= 0)
 	{
-		while (result->content)
-		{
-			while (result->next)
-				result = result->next;
-			result->next = init_list();
-			result = result->next;
-		}
-		y = scene->img->height;
-		while (--y >= 0)
-		{
-			x = -1;
-			while (++x < scene->img->width)
-				img->img[x][y] = ((t_camera *)(scene->cam->content))->data->img[x][y];
-		}
-		result->content = img;
-		scene->cam = scene->cam->next;
+		x = -1;
+		while (++x < scene->img->width)
+			img->img[x][y] = ((t_camera *)(scene->cam->content))->data->img[x][y];
 	}
+	if (lst->content)
+	{
+		lst->next = init_list();
+		lst->next->content = img;
+		lst->next->next = begin;
+	}
+	else
+	{
+		lst->content = img;
+		lst->next = lst;
+	}
+	scene->cam = scene->cam->next;
+	lst = begin;
+}
+
+t_list			*dup_img(t_scene *scene)
+{
+	t_list		*result;
+	t_list		*begin;
+
+	result = init_list();
+	begin = scene->cam;
+	while (scene->n_cam--)
+		imglst_add(scene, result);
+	scene->cam = begin;
 	return (result);
 }
 
@@ -148,7 +158,7 @@ int				main(int argc, char *argv[])
 	if (argc == 3)
 	{
 		printf("starting save bmp\n");
-		save_first_frame(img_lst->content, "minirt.bmp");
+		save_first_frame(img_lst->content, "image.bmp");
 		printf("Complete save bmp\n");
 		return (0);
 	}
