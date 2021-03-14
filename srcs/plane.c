@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 23:35:12 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:05:51 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:46:50 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ int				plane_hit(void *obj, t_ray *r, t_hit_record *rec)
 		return (FALSE);
 	oc = vec_sub(pl->p, r->orig);
 	t = vec_dot(oc, pl->normal) / denominator;
+	free(oc);
 	if (t < rec->t_min || t > rec->t_max)
 		return (FALSE);
 	rec->t = t;
 	rec->p = ray_at(r, t);
 	rec->p = vec_add(rec->p, vec_mul_const(pl->normal, 0.000001));
-	rec->normal = vec_unit(pl->normal);
+	rec->normal = vec_create(pl->normal->x, pl->normal->y, pl->normal->z);
 	rec->color = vec_create(pl->color->x, pl->color->y, pl->color->z);
 	return (TRUE);
 }

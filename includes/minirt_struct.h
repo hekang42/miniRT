@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 16:41:22 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/12 17:46:21 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct		s_hit_record
 	double			t_min;
 	double			t_max;
 	double			t;
-	int				is_front_face;
 }					t_hit_record;
 
 typedef struct		s_hittable
@@ -155,8 +154,6 @@ typedef struct		s_square
 	t_vec			*origin;
 	t_vec			*normal;
 	t_vec			*color;
-	t_vec			*p1;
-	t_vec			*p2;
 	double			size;
 }					t_square;
 

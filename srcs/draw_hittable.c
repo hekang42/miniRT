@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:18:41 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:56:45 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/14 22:59:56 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ void				draw_hittable(t_scene *scene)
 {
 	t_hit_record	*rec;
 	t_draw_var		var;
+	t_list			*cam_begin;
 
 	var.n = 0;
 	var.y = scene->img->height;
+	cam_begin = scene->cam;
 	while (var.n < scene->n_cam)
 	{
 		while ((--var.y) >= 0)
@@ -64,4 +66,5 @@ void				draw_hittable(t_scene *scene)
 		var.y = scene->img->height;
 		var.n++;
 	}
+	scene->cam = cam_begin;
 }

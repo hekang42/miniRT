@@ -6,34 +6,49 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:26:06 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:57:33 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/14 22:58:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void			camlst_add(t_scene *scene, t_camera *cam)
-{
-	t_list		*begin;
-	int			cnt;
+// void			camlst_add(t_scene *scene, t_camera *cam)
+// {
+// 	t_list		*begin;
+// 	int			cnt;
 
-	cnt = scene->n_cam;
-	begin = scene->cam;
-	if (scene->cam->content)
+// 	cnt = scene->n_cam;
+// 	begin = scene->cam;
+// 	if (scene->cam->content)
+// 	{
+// 		while (cnt--)
+// 			scene->cam = scene->cam->next;
+// 		scene->cam->next = init_list();
+// 		scene->cam->next->content = cam;
+// 		scene->cam->next->next = begin;
+// 	}
+// 	else
+// 	{
+// 		scene->cam->content = cam;
+// 		scene->cam->next = scene->cam;
+// 	}
+// 	cam->data = create_img_data(scene->img->width, scene->img->height);
+// 	scene->cam = begin;
+// }
+
+void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam)
+{
+	if (lst->content)
 	{
-		while (cnt--)
-			scene->cam = scene->cam->next;
-		scene->cam->next = init_list();
-		scene->cam->next->content = cam;
-		scene->cam->next->next = begin;
+		while (lst->next)
+			lst = lst->next;
+		lst->next = init_list();
+		lst = lst->next;
 	}
-	else
-	{
-		scene->cam->content = cam;
-		scene->cam->next = scene->cam;
-	}
+	lst->content = cam;
 	cam->data = create_img_data(scene->img->width, scene->img->height);
-	scene->cam = begin;
+	printf("%d %d \n", cam->data->height, cam->data->width);
+	printf("%d %d \n", ((t_camera *)(lst->content))->data->height, cam->data->width);
 }
 
 void			set_camera_llc(t_camera *cam, t_vec *lookat)
@@ -58,7 +73,7 @@ t_camera		*init_cam(t_scene *scene, t_vec *lookfrom,
 	double		view_w;
 	t_vec		*vup;
 
-	lookat = vec_unit(vec_mul_const_apply(lookat, -1.0));
+	lookat = vec_unit(vec_mul_const(lookat, -1.0));
 	vup = vec_create(0, 1, 0);
 	if (vec_is_parallel(vup, lookat))
 	{

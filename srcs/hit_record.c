@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 15:26:12 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:06:56 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/12 17:35:58 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,11 @@ void			reset_hit_record(t_hit_record *rec)
 		free(rec->normal);
 	if (rec->p)
 		free(rec->p);
+	free_ray(rec->ray, 0);
 }
 
 void			free_hit_record(t_hit_record *rec)
 {
 	reset_hit_record(rec);
 	free(rec);
-}
-
-void			hit_set_normal(t_hit_record *record, t_ray *r)
-{
-	record->is_front_face = (vec_dot(r->dir, record->normal) < 0) ?
-								TRUE : FALSE;
-	if (record->is_front_face == FALSE)
-		vec_mul_const_apply(record->normal, -1);
 }

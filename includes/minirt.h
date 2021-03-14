@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 17:07:17 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/14 22:01:58 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_img_data		*create_img_data(int width, int height);
 void			mlx_show(t_vars vars, t_mlx_data *img, t_img_data *data);
 void			*free_img_data(t_img_data *data);
 t_camera		*camera_locate(double aspect_ratio);
-void			free_camera(t_camera *cam);
 t_sphere		*init_sphere(t_vec *center, double radius, t_vec *color);
 void			hitlst_add(t_list *lst, void *obj, int obj_type);
 void			free_hitlst(t_list *lst);
@@ -101,7 +100,7 @@ int				parse_square(t_scene *scene, char *line);
 int				parse_cylinder(t_scene *scene, char *line);
 int				parse_cylinder_2(t_scene *scene, char *line);
 t_list			*init_list();
-void			camlst_add(t_scene *scene, t_camera *cam);
+void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam);
 void			mlx_draw_by_img_data(t_mlx_data *mlx_data,
 			t_img_data *img_data);
 t_ray			*camera_get_ray(t_camera *cam, double u, double v);
@@ -119,6 +118,20 @@ int				cylinder_hit_bottom_cap(void *obj, t_ray *r,
 int				lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec);
 void			lightlst_add(t_list *lst, t_vec *ori, double ratio,
 			t_vec *color);
-int				save_first_frame(t_scene *s, char *filename);
+int				save_first_frame(t_img_data *img, char *filename);
 
+void			free_array(char **s);
+
+void			free_scene(t_scene *scene);
+void			free_obj_list(t_list *list);
+void			free_object(t_hittable *obj);
+void			free_cam(t_camera *cam);
+void			free_cam_list(t_list *list);
+void			free_light(t_light *light);
+void			free_light_list(t_list *list);
+void			free_sphere(t_sphere *sp);
+void			free_plane(t_plane *pl);
+void			free_square(t_square *sq);
+void			free_cylinder(t_cylinder *cy);
+void			free_triangle(t_triangle *tr);
 #endif

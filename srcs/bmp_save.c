@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 15:13:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 15:03:17 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/14 17:50:25 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	write_file_header(t_frame_saver *sv)
 	sv->buf[sv->index++] = 0;
 }
 
-void	write_file_info(t_scene *s, t_frame_saver *sv)
+void	write_file_info(t_img_data *img, t_frame_saver *sv)
 {
 	int				i;
 
@@ -40,8 +40,8 @@ void	write_file_info(t_scene *s, t_frame_saver *sv)
 	sv->buf[sv->index++] = 0;
 	sv->buf[sv->index++] = 0;
 	sv->buf[sv->index++] = 0;
-	write_int(sv, s->img->width);
-	write_int(sv, s->img->height);
+	write_int(sv, img->width);
+	write_int(sv, img->height);
 	sv->buf[sv->index++] = 1;
 	sv->buf[sv->index++] = 0;
 	sv->buf[sv->index++] = 24;
@@ -54,13 +54,11 @@ void	write_file_info(t_scene *s, t_frame_saver *sv)
 	}
 }
 
-void	write_body(t_scene *s, t_frame_saver *sv)
+void	write_body(t_img_data *img, t_frame_saver *sv)
 {
 	int				x;
 	int				y;
-	t_img_data		*img;
 
-	img = ((t_camera *)(s->cam->content))->data;
 	y = 0;
 	while (y < img->height)
 	{
@@ -82,20 +80,20 @@ void	write_body(t_scene *s, t_frame_saver *sv)
 	}
 }
 
-int		save_first_frame(t_scene *s, char *filename)
+int		save_first_frame(t_img_data *img, char *filename)
 {
 	int				fd;
 	t_frame_saver	sv;
 
 	sv = (t_frame_saver) { 0 };
-	sv.size = 54 + 3 * s->img->width * s->img->height +
-		((4 - (s->img->width * 3) % 4) % 4) * s->img->height;
+	sv.size = 54 + 3 * img->width * img->height +
+		((4 - (img->width * 3) % 4) % 4) * img->height;
 	sv.buf = malloc(sv.size);
 	if ((fd = open(filename, O_WRONLY | O_CREAT)) < 0)
 		return (0);
 	write_file_header(&sv);
-	write_file_info(s, &sv);
-	write_body(s, &sv);
+	write_file_info(img, &sv);
+	write_body(img, &sv);
 	write(fd, sv.buf, sv.size);
 	close(fd);
 	return (1);

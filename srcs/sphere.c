@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:20:32 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:39:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ t_sphere	*init_sphere(t_vec *center, double radius, t_vec *color)
 	return (result);
 }
 
-void		set_face_normal(t_ray *r, t_hit_record *rec)
-{
-	rec->is_front_face = vec_dot(r->dir, rec->normal) < 0;
-	rec->normal = (rec->is_front_face) ?
-		rec->normal : vec_mul_const(rec->normal, -1);
-}
-
 t_sp_set	set_sphere_var(t_sphere *sp, t_ray *r)
 {
 	t_sp_set	s;
@@ -39,6 +32,7 @@ t_sp_set	set_sphere_var(t_sphere *sp, t_ray *r)
 	s.half_b = vec_dot(r->dir, s.oc);
 	s.c = vec_dot(s.oc, s.oc) - pow(sp->radius, 2);
 	s.discriminant = pow(s.half_b, 2) - s.a * s.c;
+	free(s.oc);
 	return (s);
 }
 

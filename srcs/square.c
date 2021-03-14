@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:59:16 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:05:42 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:37:14 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@ int				vec_each_len(t_vec *a, double l, t_vec *n)
 
 	vup = vec_create(1, 0, 0);
 	if (vec_is_parallel(vup, n))
+	{
+		free(vup);
 		vup = vec_create(0, 1, 0);
+	}
 	n_x = vec_unit(vec_cross(vup, n));
 	n_y = vec_unit(vec_cross(n, n_x));
 	len.x = fabs(vec_dot(a, n_x));
 	len.y = fabs(vec_dot(a, n_y));
+	free(n_x);
+	free(n_y);
+	free(vup);
 	if ((len.x <= l) && (len.y <= l))
 		return (TRUE);
 	return (FALSE);
@@ -44,13 +50,14 @@ int				square_hit(void *obj, t_ray *r, t_hit_record *rec)
 		return (FALSE);
 	oc = vec_sub(sq->origin, r->orig);
 	t = vec_dot(oc, sq->normal) / denominator;
+	free(oc);
 	if (t < rec->t_min || t > rec->t_max)
 		return (FALSE);
 	rec->p = ray_at(r, t);
 	if (vec_each_len(vec_sub(rec->p, sq->origin), sq->size / 2, sq->normal))
 	{
 		rec->t = t;
-		rec->normal = vec_unit(sq->normal);
+		rec->normal = vec_create(sq->normal->x, sq->normal->y, sq->normal->z);
 		rec->color = sq->color;
 		return (TRUE);
 	}

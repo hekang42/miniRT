@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:33:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:06:17 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/14 21:54:03 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_list		*init_list(void)
 
 void		lightlst_add(t_list *lst, t_vec *ori, double ratio, t_vec *color)
 {
+
 	if (lst->content)
 	{
 		while (lst->next)
