@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 10:35:23 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:09:33 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct		s_hit_record
 	t_vec			*normal;
 	t_vec			*color;
 	t_ray			*ray;
-	int				*obj;
 	double			t_min;
 	double			t_max;
 	double			t;

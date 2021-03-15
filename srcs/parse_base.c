@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:52:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 12:13:42 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 16:10:05 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int			parse_resolution(t_scene *scene, char *line)
 			x = ft_atoi(s[1]);
 		if (ft_atoi(s[2]) < y)
 			y = ft_atoi(s[2]);
-		scene->img = create_img_data(x, y);
+		// scene->img = create_img_data(x, y);
+		scene->img = (t_img_data *)ft_calloc(1, sizeof(t_img_data));
+		scene->img->height = y;
+		scene->img->width = x;
+		printf("resolution %d %d\n", scene->img->height, scene->img->width);
 	}
 	else
 	{
@@ -67,7 +71,8 @@ int			parse_camera(t_scene *scene, char *line)
 	t_vec	*from;
 	t_vec	*normal;
 
-	s = ft_split(line, ' ');
+
+			s = ft_split(line, ' ');
 	lookfrom = ft_split(s[1], ',');
 	looknormal = ft_split(s[2], ',');
 	if ((s == 0 || lookfrom == 0 || looknormal == 0) && !s[3])
@@ -80,8 +85,11 @@ int			parse_camera(t_scene *scene, char *line)
 	ft_atoi(lookfrom[1]), ft_atoi(lookfrom[2]));
 	normal = vec_create(ft_atod(looknormal[0]),
 	ft_atod(looknormal[1]), ft_atod(looknormal[2]));
+
+
 	camlst_add(scene, scene->cam, init_cam(scene, from, normal,
 	ft_atod(s[3]) * PI / 180.0));
+
 	free_array((void **)looknormal);
 	free_array((void **)lookfrom);
 	free_array((void **)s);

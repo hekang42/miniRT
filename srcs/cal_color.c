@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:48:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 11:03:10 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:14:20 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int					lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec)
 		}
 		lst = lst->next;
 	}
-	diffuse = vec_mul_each(vec_add_apply(diffuse, specular), rec->color);
+	tmp = vec_mul_each(vec_add(diffuse, specular), rec->color);
 	ambient = ambient_color(scene);
-	vec_add_apply(diffuse, vec_mul_each(ambient, rec->color));
-	// free(diffuse);
+	vec_add_apply(tmp, vec_mul_each(ambient, rec->color));
+	free(diffuse);
 	free(specular);
 	free(ambient);
-	return (get_color(diffuse));
+	return (get_color(tmp));
 }
 
 int					get_color(t_vec *color)

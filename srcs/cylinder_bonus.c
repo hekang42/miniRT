@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:03:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 14:08:35 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:32:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,13 @@ int				cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
 	tmp = vec_sub(p, c);
 	if (draw_circle(tmp, cy->diameter / 2, cy->normal))
 	{
+		if (rec->p)
+			free(rec->p);
+		if (rec->normal)
+			free(rec->normal);
 		rec->p = p;
 		rec->t = t;
-		rec->normal = vec_create(cy->normal->x, cy->normal->y, cy->normal->z);
+		rec->normal = vec_unit(vec_create(cy->normal->x, cy->normal->y, cy->normal->z));
 		rec->color = cy->color;
 		free(c);
 		return (TRUE);
@@ -95,9 +99,13 @@ int				cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec)
 	oc = vec_sub(p, cy->origin);
 	if (draw_circle(oc, cy->diameter / 2, cy->normal))
 	{
+		if (rec->p)
+			free(rec->p);
+		if (rec->normal)
+			free(rec->normal);
 		rec->p = p;
 		rec->t = t;
-		rec->normal = vec_create(cy->normal->x, cy->normal->y, cy->normal->z);
+		rec->normal = vec_unit(vec_create(cy->normal->x, cy->normal->y, cy->normal->z));
 		rec->color = cy->color;
 		return (TRUE);
 	}

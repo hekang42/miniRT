@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 23:35:12 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 12:00:03 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:20:08 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int				plane_hit(void *obj, t_ray *r, t_hit_record *rec)
 	rec->p = vec_add_apply(rec->p, tmp);
 	free(tmp);
 	rec->normal = vec_create(pl->normal->x, pl->normal->y, pl->normal->z);
-	rec->color = vec_create(pl->color->x, pl->color->y, pl->color->z);
+	// rec->color = vec_create(pl->color->x, pl->color->y, pl->color->z);
+	rec->color = pl->color;
 	return (TRUE);
 }

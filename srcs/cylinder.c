@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 09:09:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 14:28:30 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:39:43 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
 
 	cy = (t_cylinder *)obj;
 	c = set_cylinder_var(cy, r, 1);
-	if (c.discriminant < 0.00001 || c.root < rec->t_min 
+	if (c.discriminant < 0.00001 || c.root < rec->t_min
 		|| c.root > rec->t_max)
 		return (FALSE);
 	p = ray_at(r, c.root);
@@ -54,14 +54,16 @@ int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
 		rec->t = c.root;
-		rec->p = ray_at(r, c.root);
+		if (rec->p)
+			free(rec->p);
+		rec->p = p;
+		if (rec->normal)
+			free(rec->normal);
 		rec->normal = normal;
 		rec->color = cy->color;
-		free(p);
 		free(c.cp);
 		return (TRUE);
 	}
-	free(p);
 	free(c.cp);
 	return (FALSE);
 }
@@ -76,7 +78,7 @@ int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
 
 	cy = (t_cylinder *)obj;
 	c = set_cylinder_var(cy, r, 2);
-	if (c.discriminant < 0.00001 || c.root < rec->t_min 
+	if (c.discriminant < 0.00001 || c.root < rec->t_min
 		|| c.root > rec->t_max)
 		return (FALSE);
 	p = ray_at(r, c.root);
@@ -88,14 +90,16 @@ int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
 		rec->t = c.root;
-		rec->p = ray_at(r, c.root);
+		if (rec->p)
+			free(rec->p);
+		rec->p = p;
+		if (rec->normal)
+			free(rec->normal);
 		rec->normal = normal;
 		rec->color = cy->color;
-		free(p);
 		free(c.cp);
 		return (TRUE);
-	}		
-	free(p);
+	}
 	free(c.cp);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:26:06 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 12:01:15 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 16:12:34 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam)
 		lst = lst->next;
 	}
 	lst->content = cam;
-	cam->data = create_img_data(scene->img->width, scene->img->height);
+
+	((t_camera *)(lst->content))->data = create_img_data(scene->img->width, scene->img->height);
 }
 
 void			set_camera_llc(t_camera *cam, t_vec *lookat)
@@ -71,24 +72,25 @@ t_camera		*init_cam(t_scene *scene, t_vec *lookfrom,
 	double		view_w;
 	t_vec		*vup;
 
-	lookat = vec_unit(vec_mul_const(lookat, -1.0));
+	lookat = vec_unit(vec_mul_const_apply(lookat, -1.0));
 	vup = vec_create(0, 1, 0);
 	if (vec_is_parallel(vup, lookat))
 	{
 		free(vup);
 		vup = vec_create(1, 0, 0);
 	}
+
 	result = (t_camera *)ft_calloc(1, sizeof(t_camera));
 	result->fov = hfov;
 	view_w = 2 * tan(hfov / 2.0);
 	view_h = view_w / (scene->img->width) * scene->img->height;
 	result->horizontal = vec_unit(vec_cross(vup, lookat));
+	free(vup);
 	result->vertical = vec_mul_const_apply(
 							vec_cross(lookat, result->horizontal), view_h);
 	vec_mul_const_apply(result->horizontal, view_w);
 	result->origin = lookfrom;
 	set_camera_llc(result, lookat);
-	free(vup);
 	free(lookat);
 	return (result);
 }

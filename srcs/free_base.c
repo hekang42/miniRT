@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:38:04 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 13:07:47 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 16:41:59 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 void			free_cam(t_camera *cam)
 {
 	printf("cam origin %f\n", cam->origin->z);
-	// if (cam->data)
-	// {
-		free_array((void **)cam->data->img);
+	free_array((void **)cam->data->img);
+	printf("cam origin %f\n", cam->origin->z);
 		free(cam->data);
-	// }
+	// cam->data = NULL;
 	// if (cam->horizontal)
 		free(cam->horizontal);
 	// if (cam->lower_left_corner)
@@ -33,15 +32,20 @@ void			free_cam(t_camera *cam)
 
 void			free_cam_list(t_list *list)
 {
+	t_list		*tmp;
+
 	while (list->content)
 	{
 		free_cam(list->content);
-		list->content = NULL;
 		free(list->content);
+		list->content = NULL;
 		if (list->next)
-			list = list->next;
+		{
+			tmp = list->next;
+			free(list);
+			list = tmp;
+		}
 	}
-	printf("free cam list\n");
 	free(list);
 }
 
@@ -53,13 +57,21 @@ void			free_light(t_light *light)
 
 void			free_light_list(t_list *list)
 {
+	t_list		*tmp;
+
+
 	while (list->content)
 	{
+		printf("ligghgghght\n");
 		free_light(list->content);
-		list->content = NULL;
 		free(list->content);
+		list->content = NULL;
 		if (list->next)
-			list = list->next;
+		{
+			tmp = list->next;
+			free(list);
+			list = tmp;
+		}
 	}
 	free(list);
 }

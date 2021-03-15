@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:08:25 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 13:03:01 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 16:44:55 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int				**create_img(int width, int height)
 	return (result);
 }
 
-void			imglst_add(t_scene *scene, t_list *lst)
+void			imglst_add(t_scene *scene, t_list *lst, int i)
 {
 	t_img_data	*img;
 	int			x;
@@ -80,7 +80,6 @@ void			imglst_add(t_scene *scene, t_list *lst)
 	t_list		*begin;
 
 	img = create_img_data(scene->img->width, scene->img->height);
-	printf("count cam : 1\n");
 	begin = lst;
 	y = scene->img->height;
 	while (--y >= 0)
@@ -89,8 +88,13 @@ void			imglst_add(t_scene *scene, t_list *lst)
 		while (++x < scene->img->width)
 			img->img[x][y] = ((t_camera *)(scene->cam->content))->data->img[x][y];
 	}
+		printf("%d \n", i);
+	{
+	}
 	if (lst->content)
 	{
+		while (i--)
+			lst = lst->next;
 		lst->next = init_list();
 		lst->next->content = img;
 		lst->next->next = begin;
@@ -101,20 +105,47 @@ void			imglst_add(t_scene *scene, t_list *lst)
 		lst->next = lst;
 	}
 	scene->cam = scene->cam->next;
-	lst = begin;
 }
 
 t_list			*dup_img(t_scene *scene)
 {
-	t_list		*result;
+	t_list		*lst;
 	t_list		*begin;
+	t_img_data	*img;
+	int			x;
+	int			y;
+	t_list		*cam_begin;
 
-	result = init_list();
-	begin = scene->cam;
+	lst = init_list();
+	cam_begin = scene->cam;
+	begin = lst;
 	while (scene->n_cam--)
-		imglst_add(scene, result);
-	scene->cam = begin;
-	return (result);
+	{
+		img = create_img_data(scene->img->width, scene->img->height);
+		y = scene->img->height;
+		while (--y >= 0)
+		{
+			x = -1;
+			while (++x < scene->img->width)
+				img->img[x][y] = ((t_camera *)(scene->cam->content))->data->img[x][y];
+		}
+		if (lst->content)
+		{
+			lst->next = init_list();
+			lst->next->content = img;
+			lst->next->next = begin;
+			lst = lst->next;
+		}
+		else
+		{
+			lst->content = img;
+			lst->next = lst;
+		}
+		scene->cam = scene->cam->next;
+	}
+	lst = lst->next;
+	scene->cam = cam_begin;
+	return (lst);
 }
 
 int				main(int argc, char *argv[])
@@ -140,8 +171,9 @@ int				main(int argc, char *argv[])
 		return (0);
 	}
 	scene = parse(argv[1]);
+
 	n = 0;
-	// draw_hittable(scene);
+	draw_hittable(scene);
 	img_lst = dup_img(scene);
 
 	// data = ((t_camera *)(scene->cam->content))->data;
@@ -151,8 +183,6 @@ int				main(int argc, char *argv[])
 	printf("4444\n");
 	img = (t_mlx_data *)ft_calloc(1, sizeof(t_mlx_data));
 	img->img = mlx_new_image(vars.mlx, data->width, data->height);
-	while (!img->img)
-		img->img = mlx_new_image(vars.mlx, data->width, data->height);
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel), \
 					&(img->line_length), &(img->endian));
 	g_vars = vars;
@@ -166,7 +196,9 @@ int				main(int argc, char *argv[])
 		return (0);
 	}
 	free_scene(scene);
+
 	printf("finish free\n");
+
 	mlx_show(vars, img, data);
 	mlx_hook(vars.win, X_KEY_PRESS, 0, mlx_key_handle, 0);
 	mlx_mouse_hook(vars.win, mouse_button_handle, 0);

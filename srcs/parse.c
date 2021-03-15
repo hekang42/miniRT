@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 12:00:09 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 16:03:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ t_scene			*init_scene(void)
 
 	result = (t_scene *)ft_calloc(1, sizeof(t_scene));
 	result->n_cam = 0;
+	result->obj = init_list();
+	result->cam = init_list();
+	result->light = init_list();
 	return (result);
 }
 
@@ -40,6 +43,7 @@ int				parse_base(t_scene *scene, char *line)
 
 int				parse_obj(t_scene *scene, char *line)
 {
+
 	while (line[0] == ' ')
 		line++;
 	if (ft_strnstr(line, "pl ", 3))
@@ -56,6 +60,7 @@ int				parse_obj(t_scene *scene, char *line)
 		parse_triangle(scene, line);
 	else
 		return (0);
+
 	return (1);
 }
 
@@ -75,9 +80,6 @@ t_scene			*parse(char *rt_file)
 	t_scene		*scene;
 
 	scene = init_scene();
-	scene->obj = init_list();
-	scene->cam = init_list();
-	scene->light = init_list();
 	fd = open(rt_file, O_RDONLY);
 	if (fd < 0)
 	{
