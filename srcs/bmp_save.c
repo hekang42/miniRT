@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 15:13:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 17:50:25 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:56:32 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		save_first_frame(t_img_data *img, char *filename)
 	sv = (t_frame_saver) { 0 };
 	sv.size = 54 + 3 * img->width * img->height +
 		((4 - (img->width * 3) % 4) % 4) * img->height;
-	sv.buf = malloc(sv.size);
+	sv.buf = ft_calloc(1, sv.size);
 	if ((fd = open(filename, O_WRONLY | O_CREAT)) < 0)
 		return (0);
 	write_file_header(&sv);

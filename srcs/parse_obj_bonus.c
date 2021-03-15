@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:00:52 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 18:27:37 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:03:58 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@ int				parse_cylinder_2(t_scene *scene, char *line)
 		printf("ERROR : Init Cylinder_bonus\n");
 		return (0);
 	}
-	cy = (t_cylinder *)malloc(sizeof(t_cylinder));
+	cy = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
 	tmp = ft_split(s[1], ',');
 	cy->origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
-	free_array(tmp);
+	free_array((void **)tmp);
 	tmp = ft_split(s[2], ',');
 	cy->normal = vec_unit(vec_create(ft_atod(tmp[0]),
 	ft_atod(tmp[1]), ft_atod(tmp[2])));
-	free_array(tmp);
+	free_array((void **)tmp);
 	cy->diameter = ft_atod(s[4]);
 	cy->height = ft_atod(s[5]);
 	tmp = ft_split(s[3], ',');
 	cy->color = vec_create(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]));
-	free_array(tmp);
+	free_array((void **)tmp);
 	hitlst_add(scene->obj, (void *)cy, OBJ_CYLINDER);
 	hitlst_add(scene->obj, (void *)cy, OBJ_CYLINDER_2);
 	hitlst_add(scene->obj, (void *)cy, OBJ_CYLINDER_CAP);
 	hitlst_add(scene->obj, (void *)cy, OBJ_CYLINDER_CAP_2);
-	free_array(s);
+	free_array((void **)s);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 17:05:31 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:00:09 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_scene			*init_scene(void)
 {
 	t_scene		*result;
 
-	result = (t_scene *)malloc(sizeof(t_scene));
+	result = (t_scene *)ft_calloc(1, sizeof(t_scene));
 	result->n_cam = 0;
 	return (result);
 }

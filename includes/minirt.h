@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 22:01:58 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:01:30 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void			lightlst_add(t_list *lst, t_vec *ori, double ratio,
 			t_vec *color);
 int				save_first_frame(t_img_data *img, char *filename);
 
-void			free_array(char **s);
+void			free_array(void **s);
 
 void			free_scene(t_scene *scene);
 void			free_obj_list(t_list *list);
@@ -134,4 +134,5 @@ void			free_plane(t_plane *pl);
 void			free_square(t_square *sq);
 void			free_cylinder(t_cylinder *cy);
 void			free_triangle(t_triangle *tr);
+t_vec			*vec_unit_apply(t_vec *u);
 #endif

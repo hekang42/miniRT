@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:48:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 17:47:03 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:03:10 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ t_vec				*diffuse_color(t_light *light, t_hit_record *rec)
 {
 	t_vec			*color;
 	t_vec			*diffuse_l;
-	t_vec			*diffuse_n;
 
 	diffuse_l = vec_unit(vec_sub(light->origin, rec->p));
-	diffuse_n = rec->normal;
 	color = vec_mul_const(light->color,
-		vec_dot(diffuse_l, diffuse_n) * light->ratio);
+		vec_dot(diffuse_l, rec->normal) * light->ratio);
 	free(diffuse_l);
 	return (vec_div_const_apply(clamp_vec(color, 0, 255), 255.0));
 }
@@ -57,13 +55,12 @@ t_vec				*ambient_color(t_scene *scene)
 
 int					lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec)
 {
-	t_vec			*color;
 	t_light			*light;
 	t_vec			*diffuse;
 	t_vec			*specular;
 	t_vec			*ambient;
+	t_vec			*tmp;
 
-	color = rec->color;
 	diffuse = vec_create(0, 0, 0);
 	specular = vec_create(0, 0, 0);
 	while (lst && lst->content)
@@ -71,18 +68,22 @@ int					lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec)
 		light = (t_light *)(lst->content);
 		if (!in_shadow(scene, light, rec))
 		{
-			diffuse = vec_add(diffuse, diffuse_color(light, rec));
-			specular = vec_add(specular, specular_color(light, rec));
+			tmp = diffuse_color(light, rec);
+			diffuse = vec_add_apply(diffuse, tmp);
+			free(tmp);
+			tmp = specular_color(light, rec);
+			specular = vec_add_apply(specular, tmp);
+			free(tmp);
 		}
 		lst = lst->next;
 	}
-	color = vec_mul_each(color, vec_add(diffuse, specular));
+	diffuse = vec_mul_each(vec_add_apply(diffuse, specular), rec->color);
 	ambient = ambient_color(scene);
-	vec_add_apply(color, vec_mul_each(rec->color, ambient));
-	free(diffuse);
+	vec_add_apply(diffuse, vec_mul_each(ambient, rec->color));
+	// free(diffuse);
 	free(specular);
 	free(ambient);
-	return (get_color(color));
+	return (get_color(diffuse));
 }
 
 int					get_color(t_vec *color)

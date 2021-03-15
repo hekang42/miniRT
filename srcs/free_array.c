@@ -6,18 +6,21 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:39:18 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 18:42:33 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:06:54 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void		free_array(char **s)
+void		free_array(void **s)
 {
 	size_t	i;
 
 	i = 0;
 	while (s[i] != NULL)
-		free(s[i++]);
+	{
+		if (s[i])
+			free(s[i++]);
+	}
 	free(s);
 }

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:33:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 21:54:03 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:01:11 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list		*init_list(void)
 {
 	t_list	*result;
 
-	result = (t_list *)malloc(sizeof(t_list));
+	result = (t_list *)ft_calloc(1, sizeof(t_list));
 	result->content = NULL;
 	result->next = NULL;
 	return (result);
@@ -39,7 +39,7 @@ t_light		*init_light(t_vec *ori, double ratio, t_vec *color)
 {
 	t_light	*result;
 
-	result = (t_light *)malloc(sizeof(t_light));
+	result = (t_light *)ft_calloc(1, sizeof(t_light));
 	result->origin = ori;
 	result->ratio = ratio;
 	result->color = color;

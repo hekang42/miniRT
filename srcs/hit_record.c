@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 15:26:12 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 17:35:58 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:59:55 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_hit_record	*hit_record_new(void)
 {
 	t_hit_record	*result;
 
-	result = (t_hit_record *)malloc(sizeof(t_hit_record));
+	result = (t_hit_record *)ft_calloc(1, sizeof(t_hit_record));
 	result->normal = NULL;
 	result->p = NULL;
 	result->t_min = HIT_T_MIN;

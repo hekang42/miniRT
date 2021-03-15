@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:26:06 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/14 22:58:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:01:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam)
 	}
 	lst->content = cam;
 	cam->data = create_img_data(scene->img->width, scene->img->height);
-	printf("%d %d \n", cam->data->height, cam->data->width);
-	printf("%d %d \n", ((t_camera *)(lst->content))->data->height, cam->data->width);
 }
 
 void			set_camera_llc(t_camera *cam, t_vec *lookat)
@@ -80,8 +78,7 @@ t_camera		*init_cam(t_scene *scene, t_vec *lookfrom,
 		free(vup);
 		vup = vec_create(1, 0, 0);
 	}
-	result = (t_camera *)malloc(sizeof(t_camera));
-	result->normal = lookat;
+	result = (t_camera *)ft_calloc(1, sizeof(t_camera));
 	result->fov = hfov;
 	view_w = 2 * tan(hfov / 2.0);
 	view_h = view_w / (scene->img->width) * scene->img->height;
@@ -91,25 +88,7 @@ t_camera		*init_cam(t_scene *scene, t_vec *lookfrom,
 	vec_mul_const_apply(result->horizontal, view_w);
 	result->origin = lookfrom;
 	set_camera_llc(result, lookat);
+	free(vup);
 	free(lookat);
-	return (result);
-}
-
-t_camera		*create_cam(double aspect_ratio)
-{
-	t_camera	*result;
-	double		viewport_height;
-	double		viewport_width;
-	double		focal_length;
-
-	result = (t_camera *)malloc(sizeof(t_camera));
-	focal_length = 1.0;
-	viewport_height = 30.0;
-	viewport_width = viewport_height * aspect_ratio;
-	result->origin = vec_create(0, 0, 0);
-	result->horizontal = vec_create(viewport_width, 0, 0);
-	result->vertical = vec_create(0, viewport_height, 0);
-	result->lower_left_corner = vec_sub(result->origin,
-		vec_create(viewport_width / 2, viewport_height / 2, focal_length));
 	return (result);
 }

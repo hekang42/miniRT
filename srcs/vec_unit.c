@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img_utils.c                                        :+:      :+:    :+:   */
+/*   vec_unit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 13:34:26 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 11:58:40 by hekang           ###   ########.fr       */
+/*   Created: 2021/03/15 10:57:59 by hekang            #+#    #+#             */
+/*   Updated: 2021/03/15 11:59:08 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_img_data		*create_img_data(int width, int height)
+t_vec		*vec_unit(t_vec *u)
 {
-	t_img_data	*result;
-	int			h;
-	int			w;
+	t_vec	*result;
 
-	result = (t_img_data *)ft_calloc(1, sizeof(t_img_data));
-	result->height = height;
-	result->width = width;
-	result->img = (int **)ft_calloc(width, sizeof(int *));
-	w = -1;
-	while (++w < width)
-	{
-		result->img[w] = (int *)ft_calloc(height, sizeof(int));
-		h = -1;
-		while (++h < height)
-			result->img[w][h] = 0;
-	}
+	result = (t_vec *)ft_calloc(1, sizeof(t_vec));
+	result = vec_div_const(u, vec_len(u));
+	if (u)
+		free(u);
 	return (result);
+}
+
+t_vec		*vec_unit_apply(t_vec *u)
+{
+	t_vec	*unit;
+
+	unit = vec_unit(u);
+	u->x = unit->x;
+	u->y = unit->y;
+	u->z = unit->z;
+	free(unit);
+	return (u);
 }

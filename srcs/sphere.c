@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 11:39:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:59:50 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_sphere	*init_sphere(t_vec *center, double radius, t_vec *color)
 {
 	t_sphere	*result;
 
-	result = (t_sphere *)malloc(sizeof(t_sphere));
+	result = (t_sphere *)ft_calloc(1, sizeof(t_sphere));
 	result->center = center;
 	result->radius = radius;
 	result->color = color;
@@ -57,7 +57,11 @@ int			sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 		|| (-s.half_b - s.sqrtd) / s.a < rec->t_min)
 		return (FALSE);
 	rec->t = s.root;
+	if (rec->p)
+		free(rec->p);
 	rec->p = ray_at(r, s.root);
+	if (rec->normal)
+		free(rec->normal);
 	rec->normal = vec_unit(vec_sub(rec->p, sp->center));
 	rec->color = sp->color;
 	return (TRUE);

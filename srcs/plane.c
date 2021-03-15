@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 23:35:12 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 11:46:50 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:00:03 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_plane			*init_plane(t_vec *p, t_vec *normal, t_vec *color)
 {
 	t_plane		*result;
 
-	result = (t_plane *)malloc(sizeof(t_plane));
+	result = (t_plane *)ft_calloc(1, sizeof(t_plane));
 	result->p = p;
 	result->normal = normal;
 	result->color = color;
@@ -29,6 +29,7 @@ int				plane_hit(void *obj, t_ray *r, t_hit_record *rec)
 	t_plane		*pl;
 	t_vec		*oc;
 	double		t;
+	t_vec		*tmp;
 
 	pl = ((t_plane *)obj);
 	denominator = vec_dot(pl->normal, r->dir);
@@ -39,9 +40,15 @@ int				plane_hit(void *obj, t_ray *r, t_hit_record *rec)
 	free(oc);
 	if (t < rec->t_min || t > rec->t_max)
 		return (FALSE);
+	if (rec->p)
+		free(rec->p);
+	if (rec->normal)
+		free(rec->normal);
 	rec->t = t;
 	rec->p = ray_at(r, t);
-	rec->p = vec_add(rec->p, vec_mul_const(pl->normal, 0.000001));
+	tmp = vec_mul_const(pl->normal, 0.000001);
+	rec->p = vec_add_apply(rec->p, tmp);
+	free(tmp);
 	rec->normal = vec_create(pl->normal->x, pl->normal->y, pl->normal->z);
 	rec->color = vec_create(pl->color->x, pl->color->y, pl->color->z);
 	return (TRUE);

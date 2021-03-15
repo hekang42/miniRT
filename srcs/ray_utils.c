@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 13:54:27 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 11:56:23 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:59:58 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_ray		*create_ray(t_vec *origin, t_vec *direction)
 {
 	t_ray	*result;
 
-	result = (t_ray *)malloc(sizeof(t_ray));
+	result = (t_ray *)ft_calloc(1, sizeof(t_ray));
 	result->orig = origin;
 	result->dir = direction;
 	return (result);

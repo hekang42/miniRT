@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 17:46:21 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 10:35:23 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct		s_camera
 	t_vec			*lower_left_corner;
 	t_vec			*horizontal;
 	t_vec			*vertical;
-	t_vec			*normal;
 	double			fov;
 }					t_camera;
 

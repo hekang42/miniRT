@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:08:25 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 08:57:42 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 13:03:01 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_vars		g_vars;
 
 int				exit_program(void)
 {
+	// mlx_destroy_image(g_vars.mlx, g_img);
+	mlx_destroy_window(g_vars.mlx, g_vars.win);
 	exit(0);
 	return (0);
 }
@@ -25,6 +27,7 @@ int				exit_program(void)
 int				change_camera(void)
 {
 	t_img_data *data;
+
 
 	if (g_img_list->next)
 		g_img_list = g_img_list->next;
@@ -58,10 +61,10 @@ int				**create_img(int width, int height)
 	int			h;
 
 	w = -1;
-	result = (int **)malloc(sizeof(int *) * width);
+	result = (int **)ft_calloc(width, sizeof(int *));
 	while (++w < width)
 	{
-		result[w] = (int *)malloc(sizeof(int) * height);
+		result[w] = (int *)ft_calloc(height, sizeof(int));
 		h = -1;
 		while (++h < height)
 			result[w][h] = 0;
@@ -138,18 +141,18 @@ int				main(int argc, char *argv[])
 	}
 	scene = parse(argv[1]);
 	n = 0;
-	draw_hittable(scene);
-	printf("22222\n");
+	// draw_hittable(scene);
 	img_lst = dup_img(scene);
-	printf("33333\n");
 
 	// data = ((t_camera *)(scene->cam->content))->data;
 	data = img_lst->content;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, data->width, data->height, "miniRT");
 	printf("4444\n");
-	img = (t_mlx_data *)malloc(sizeof(t_mlx_data));
+	img = (t_mlx_data *)ft_calloc(1, sizeof(t_mlx_data));
 	img->img = mlx_new_image(vars.mlx, data->width, data->height);
+	while (!img->img)
+		img->img = mlx_new_image(vars.mlx, data->width, data->height);
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel), \
 					&(img->line_length), &(img->endian));
 	g_vars = vars;
@@ -162,7 +165,6 @@ int				main(int argc, char *argv[])
 		printf("Complete save bmp\n");
 		return (0);
 	}
-	printf("123\n");
 	free_scene(scene);
 	printf("finish free\n");
 	mlx_show(vars, img, data);

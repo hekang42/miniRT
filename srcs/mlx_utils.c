@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 13:33:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 14:43:15 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:30:55 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		mlx_show(t_vars vars, t_mlx_data *img, t_img_data *data)
 {
 	mlx_draw_by_img_data(img, data);
 	mlx_put_image_to_window(vars.mlx, vars.win, img->img, 0, 0);
+
 }
 
 /*

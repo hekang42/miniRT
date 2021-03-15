@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:14:55 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/11 11:38:30 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:56:57 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_hittable			*hittable_create(void *obj, int obj_type)
 {
 	t_hittable		*result;
 
-	result = (t_hittable *)malloc(sizeof(t_hittable));
+	result = (t_hittable *)ft_calloc(1, sizeof(t_hittable));
 	result->obj = obj;
 	result->obj_type = obj_type;
 	if (obj_type == OBJ_SPHERE)
