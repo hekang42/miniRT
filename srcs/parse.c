@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 11:21:08 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 14:52:41 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ int				parse_obj(t_scene *scene, char *line)
 		parse_cylinder_2(scene, line);
 	else if (ft_strnstr(line, "tr ", 3))
 		parse_triangle(scene, line);
+	else if (ft_strnstr(line, "cb ", 3))
+		parse_cube(scene, line);
+	else if (ft_strnstr(line, "py ", 3))
+		parse_pyramid(scene, line);
 	else
 		return (0);
 

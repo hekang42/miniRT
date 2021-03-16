@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 12:01:30 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 15:05:18 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,12 @@ void			free_square(t_square *sq);
 void			free_cylinder(t_cylinder *cy);
 void			free_triangle(t_triangle *tr);
 t_vec			*vec_unit_apply(t_vec *u);
+void			cubetosquare(t_scene *scene, t_cube *cube);
+void			cubetosquare_2(t_scene *scene, t_cube *cube);
+int				parse_cube(t_scene *scene, char *line);
+int				parse_pyramid(t_scene *scene, char *line);
+void			pyramidtotriangle(t_scene *scene, t_pyramid *py);
+void			pyramidtosquare(t_scene *scene, t_pyramid *py);
+
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 14:09:33 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 14:46:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,4 +200,30 @@ typedef struct		s_specular_var
 	t_vec			*l_rev;
 	double			reflection;
 }					t_specular_var;
+
+typedef struct		s_cube
+{
+	t_vec			*origin;
+	double			size;
+	t_vec			*color;
+	t_square		*sq1;
+	t_square		*sq2;
+	t_square		*sq3;
+	t_square		*sq4;
+	t_square		*sq5;
+	t_square		*sq6;
+}					t_cube;
+
+typedef struct		s_pyramid
+{
+	t_vec			*origin;
+	double			size;
+	t_vec			*color;
+	t_square		*sq;
+	t_triangle		*tri1;
+	t_triangle		*tri2;
+	t_triangle		*tri3;
+	t_triangle		*tri4;
+}					t_pyramid;
+
 #endif
