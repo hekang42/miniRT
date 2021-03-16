@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 14:46:15 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 17:06:05 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct		s_hit_record
 	double			t_min;
 	double			t_max;
 	double			t;
+	double			u;
+	double			v;
 }					t_hit_record;
 
 typedef struct		s_hittable

@@ -6,7 +6,7 @@
 #    By: hekang <hekang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 00:08:03 by hekang            #+#    #+#              #
-#    Updated: 2021/03/16 16:02:40 by hekang           ###   ########.fr        #
+#    Updated: 2021/03/16 22:44:38 by hekang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ SRC		= img_utils.c main.c mlx_utils.c ray_utils.c vec_calc_apply.c vec_calc.c ve
 		draw_hittable.c hit_record.c plane.c light.c ambient.c parse.c \
 		gnl/get_next_line.c parse_base.c parse_obj.c triangle.c shadow.c square.c cylinder.c \
 		cylinder_bonus.c parse_obj_bonus.c cal_color.c bmp_save.c \
-		free_array.c free_base.c free_obj.c free_obj_2.c vec_unit.c cube.c pyramid.c
+		free_array.c free_base.c free_obj.c free_obj_2.c vec_unit.c cube.c pyramid.c \
+		get_uv.c uv_sphere.c parse_bonus.c sphere_checker.c init_scene.c sphere_rainbow.c \
+		square_checker.c parse_obj_bonus_2.c cylinder_rainbow.c
 
 SRCDIR	= ./srcs/
 SRCS 	= $(addprefix $(SRCDIR), $(SRC))

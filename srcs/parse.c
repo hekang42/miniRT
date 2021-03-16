@@ -6,23 +6,11 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 14:52:41 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 20:13:06 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_scene			*init_scene(void)
-{
-	t_scene		*result;
-
-	result = (t_scene *)ft_calloc(1, sizeof(t_scene));
-	result->n_cam = 0;
-	result->obj = init_list();
-	result->cam = init_list();
-	result->light = init_list();
-	return (result);
-}
 
 int				parse_base(t_scene *scene, char *line)
 {
@@ -43,7 +31,6 @@ int				parse_base(t_scene *scene, char *line)
 
 int				parse_obj(t_scene *scene, char *line)
 {
-
 	while (line[0] == ' ')
 		line++;
 	if (ft_strnstr(line, "pl ", 3))
@@ -54,17 +41,10 @@ int				parse_obj(t_scene *scene, char *line)
 		parse_square(scene, line);
 	else if (ft_strnstr(line, "cy ", 3))
 		parse_cylinder(scene, line);
-	else if (ft_strnstr(line, "cy2 ", 4))
-		parse_cylinder_2(scene, line);
 	else if (ft_strnstr(line, "tr ", 3))
 		parse_triangle(scene, line);
-	else if (ft_strnstr(line, "cb ", 3))
-		parse_cube(scene, line);
-	else if (ft_strnstr(line, "py ", 3))
-		parse_pyramid(scene, line);
 	else
 		return (0);
-
 	return (1);
 }
 
@@ -73,6 +53,8 @@ void			parse_rt(t_scene *scene, char *line)
 	if (parse_base(scene, line))
 		return ;
 	else if (parse_obj(scene, line))
+		return ;
+	else if (parse_bonus(scene, line))
 		return ;
 }
 

@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   uv_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 21:46:15 by hekang           ###   ########.fr       */
+/*   Created: 2021/03/16 17:10:08 by hekang            #+#    #+#             */
+/*   Updated: 2021/03/16 17:14:26 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_sphere	*init_sphere(t_vec *center, double radius, t_vec *color)
-{
-	t_sphere	*result;
-
-	result = (t_sphere *)ft_calloc(1, sizeof(t_sphere));
-	result->center = center;
-	result->radius = radius;
-	result->color = color;
-	return (result);
-}
-
-t_sp_set	set_sphere_var(t_sphere *sp, t_ray *r)
-{
-	t_sp_set	s;
-
-	s.oc = vec_sub(r->orig, sp->center);
-	s.a = vec_dot(r->dir, r->dir);
-	s.half_b = vec_dot(r->dir, s.oc);
-	s.c = vec_dot(s.oc, s.oc) - pow(sp->radius, 2);
-	s.discriminant = pow(s.half_b, 2) - s.a * s.c;
-	free(s.oc);
-	return (s);
-}
-
-int			sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
+int			uv_sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 {
 	t_sphere	*sp;
 	t_sp_set	s;
@@ -63,10 +39,13 @@ int			sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 	if (rec->normal)
 		free(rec->normal);
 	rec->normal = vec_unit(vec_sub(rec->p, sp->center));
-	rec->color = sp->color;
 	get_sphere_uv(rec);
-	// Normal disruption 
-	// rec->normal = vec_unit(vec_add(rec->normal, vec_mul_const(vec_create(1, 1, 1), 0.5 * sin(rec->v * 100))));
+	if (rec->u / 10 / 2 == 1 && rec->v / 10 / 2 ==1)
+		rec->color = vec_create(0,0,0);
+	else
+		rec->color = vec_create(255,255,255);
+	free(sp->color);
+	// rec->color = sp->color;
 
 	return (TRUE);
 }

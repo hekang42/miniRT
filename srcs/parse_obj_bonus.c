@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:00:52 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 15:54:31 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 20:29:11 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,55 @@ int				parse_pyramid(t_scene *scene, char *line)
 	free(py->color);
 	free(py->origin);
 	free(py);
+	return (1);
+}
+
+int					parse_sphere_checker(t_scene *scene, char *line)
+{
+	char		**s;
+	t_vec		*origin;
+	double		radius;
+	t_vec		*color;
+	char		**tmp;
+
+	s = ft_split(line, ' ');
+	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
+	{
+		printf("ERROR : Init Sphere\n");
+		return (0);
+	}
+	tmp = ft_split(s[1], ',');
+	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
+	free_array((void **)tmp);
+	radius = ft_atod(s[2]) / 2;
+	tmp = ft_split(s[3], ',');
+	color = vec_create(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]));
+	free_array((void **)tmp);
+	hitlst_add(scene->obj, (void *)init_sphere(origin, radius, color),
+		OBJ_SPHERE_CHECKER);
+	free_array((void **)s);
+	return (1);
+}
+
+int					parse_sphere_rainbow(t_scene *scene, char *line)
+{
+	char		**s;
+	t_vec		*origin;
+	double		radius;
+	char		**tmp;
+
+	s = ft_split(line, ' ');
+	if (s == 0 || !s[1] || !s[2] || s[3])
+	{
+		printf("ERROR : Init Sphere\n");
+		return (0);
+	}
+	tmp = ft_split(s[1], ',');
+	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
+	free_array((void **)tmp);
+	radius = ft_atod(s[2]) / 2;
+	hitlst_add(scene->obj, (void *)init_sphere(origin, radius, vec_create(0, 0, 0)),
+		OBJ_SPHERE_RAINBOW);
+	free_array((void **)s);
 	return (1);
 }

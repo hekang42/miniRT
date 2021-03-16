@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
+/*   cylinder_rainbow.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 09:09:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 23:03:30 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 23:07:54 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cy_set		set_cylinder_var(t_cylinder *cy, t_ray *r, int type)
-{
-	t_cy_set	c;
-	t_vec		*oc;
-
-	oc = vec_sub(r->orig, cy->origin);
-	c.a = vec_dot(r->dir, r->dir) - pow(vec_dot(r->dir, cy->normal), 2);
-	c.b = 2 * (vec_dot(r->dir, oc) - vec_dot(r->dir, cy->normal)
-		* vec_dot(oc, cy->normal));
-	c.c = vec_dot(oc, oc) - pow(vec_dot(oc, cy->normal), 2)
-		- pow(cy->diameter / 2, 2);
-	c.discriminant = pow(c.b, 2) - 4 * c.a * c.c;
-	if (type == 1)
-		c.root = (-c.b + pow(c.discriminant, 0.5)) / 2 / c.a;
-	else if (type == 2)
-		c.root = (-c.b - pow(c.discriminant, 0.5)) / 2 / c.a;
-	free(oc);
-	return (c);
-}
-
-int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
+int				cylinder_hit_rainbow_2(void *obj, t_ray *r, t_hit_record *rec)
 {
 	t_cylinder	*cy;
 	t_cy_set	c;
@@ -60,7 +40,7 @@ int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
 		if (rec->normal)
 			free(rec->normal);
 		rec->normal = normal;
-		rec->color = cy->color;
+		rec->color = vec_mul_const(vec_add(rec->normal, vec_create(1, 1, 1)), 255 / 2);
 		free(c.cp);
 		return (TRUE);
 	}
@@ -70,7 +50,7 @@ int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
 	return (FALSE);
 }
 
-int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
+int				cylinder_hit_rainbow(void *obj, t_ray *r, t_hit_record *rec)
 {
 	t_cylinder	*cy;
 	t_cy_set	c;
@@ -98,7 +78,7 @@ int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
 		if (rec->normal)
 			free(rec->normal);
 		rec->normal = normal;
-		rec->color = cy->color;
+		rec->color = vec_mul_const(vec_add(rec->normal, vec_create(1, 1, 1)), 255 / 2);
 		free(c.cp);
 		return (TRUE);
 	}

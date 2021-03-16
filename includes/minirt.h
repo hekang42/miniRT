@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 15:05:18 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 22:46:31 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # define OBJ_CYLINDER_2 6
 # define OBJ_CYLINDER_CAP 7
 # define OBJ_CYLINDER_CAP_2 8
+# define OBJ_SPHERE_CHECKER 9
+# define OBJ_SPHERE_RAINBOW 10
+# define OBJ_SQUARE_CHECKER 11
+# define OBJ_CYLINDER_RAINBOW 12
+# define OBJ_CYLINDER_RAINBOW_2 13
 # define ANTI_SAMPLES 50
 # define REFLECT_DEPTH 5
 # define X_KEY_PRESS 2
@@ -141,6 +146,24 @@ int				parse_cube(t_scene *scene, char *line);
 int				parse_pyramid(t_scene *scene, char *line);
 void			pyramidtotriangle(t_scene *scene, t_pyramid *py);
 void			pyramidtosquare(t_scene *scene, t_pyramid *py);
+void			get_sphere_uv(t_hit_record *rec);
+void			get_square_uv(t_hit_record *rec, t_square *sq);
+int				uv_sphere_hit(void *obj, t_ray *r, t_hit_record *rec);
+t_sp_set		set_sphere_var(t_sphere *sp, t_ray *r);
+int				parse_bonus(t_scene *scene, char *line);
+int				sphere_hit_checker(void *obj, t_ray *r, t_hit_record *rec);
+t_scene			*init_scene(void);
+int				parse_sphere_checker(t_scene *scene, char *line);
+int				parse_sphere_rainbow(t_scene *scene, char *line);
+int				parse_cylinder_rainbow(t_scene *scene, char *line);
+int				sphere_hit_rainbow(void *obj, t_ray *r, t_hit_record *rec);
+int				vec_each_len(t_vec *a, double l, t_vec *n, t_hit_record *rec);
+int				square_hit_checker(void *obj, t_ray *r, t_hit_record *rec);
+int				parse_square_checker(t_scene *scene, char *line);
+t_cy_set		set_cylinder_var(t_cylinder *cy, t_ray *r, int type);
+int				cylinder_hit_rainbow(void *obj, t_ray *r, t_hit_record *rec);
+int				cylinder_hit_rainbow_2(void *obj, t_ray *r, t_hit_record *rec);
+
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:15:37 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 16:37:21 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 22:59:27 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		triangle_hit(void *obj, t_ray *r, t_hit_record *rec)
 	u = vec_dot(tri_set.tvec, tri_set.pvec) * tri_set.invdet;
 	tri_set.qvec = vec_cross(tri_set.tvec, tri_set.v0v1);
 	v = vec_dot(r->dir, tri_set.qvec) * tri_set.invdet;
-	if ((u < 0 || u > 1) || (v < 0 || u + v > 1) || fabs(tri_set.det) < 0.00000001)
+	if ((u < 0 || u > 1) || (v < 0 || u + v > 1) || fabs(tri_set.det) < 0.000001)
 		return (free_tri_set(&tri_set));
 	t = vec_dot(tri_set.v0v2, tri_set.qvec) * tri_set.invdet;
 	if (t > rec->t_max || t < rec->t_min)

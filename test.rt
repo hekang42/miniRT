@@ -1,64 +1,74 @@
+# Must-have Elements (Only 1 each)
+# R x y							Resolution
+# A raito		color			Ambient light
+
+# Elements (1 or more)
+# c origin lookat hfov			Camera
+# l origin ratio color			Light
+ 
+# Objects
+# pl origin normal color		Plane
+# sp origin diameter color		Sphere
+# sq origin normal size color	Square
+# cy origin normal diameter 	Cylinder
+# 					height color
+# tr p0 p1 p2 color				Triangle
+ 
+# -------------Bonus------------- #
+# cb origin size color			Cube (6 * Square)
+# py origin size color			Pyramid (1 * Square + 4 * Triangle)
+# co origin diameter color 		Cone
+# cy2 origin normal diameter 	Cylinder with cap
+# 					height color
+# sp_c origin diameter color	Sphere with UV CHECKER
+# sq_c origin normal s color	Square with UV CHECKER
+# sp_r origin diameter			Rainbow Sphere
+# cy_r origin normal diameter	Rainbow Cylinder
+# cy2 origin normal diameter 	Cylinder with cap
+
+# sepia							sepia filter
+# anti count					Anti-aliasing
+# sp_map origing diameter 		Sphere with mapping and bump map texture
+#					imagefile
+
+
+
+
 R   400  300
 # R   1440  1080
 A   0.3           255,255,255
 
-# c   0,70,70     0,-1,-1      90
-# c   0,50,1     0,-1,0       90
-c   0,50,0     0,-1,0      90
-c   0,0,-50     0,0,1       90
-c   0,0,50     0,0,-1       90
-c   50,0,0     -1,0,0       90
-c   -50,0,0     1,0,0       90
-# c   -30,30,30    1,-1,0      90
-# c   50,0,30    -1,1,0      90
-# c   0,-30,-50         0,-1,1       70
+c   0,50,20     0,-1,0      90
+c   0,0,-30     0,0,1       90
+c   0,0,70     0,0,-1       90
+# c   50,0,0     -1,0,0       90
+# c   -50,0,0     1,0,0       90
 l   20,100,100    0.6     255,255,255
-l   30,50,50    0.5      255,255,255
+l   30,100,50    0.5      255,255,255
 # l   10,50,50    0.5      255,255,255
+
 pl  0,-5,0   0,1,0     100,100,100
 # pl  0,-5,0   0.5,1,0     0,0,0
-# pl  -50,0,0  1,0.5,0     100,0,0
-# pl  55,0,0  -1,0,0     0,0,0
-
 # sp  -20,10,40    15   50,50,50
-# sp  -20,3,25    15   100,50,50
-# sp  20,10,25    15   100,50,50
-# sp  0,0,10    25   100,255,1
-# sp  0,0,0    30   20,100,0
-# sp  0,30,0      25   25,110,0
-# sp  10,5,20     5   100,100,100
-# sp  20,5,20     5   5,0,0
-sp  30,10,25     5   100,0,0
+sp  20,10,20     10  0,200,0
 # sp  20,0,20     7   2,0,100
 # sp  20,0,2     15  100,0,0
-
-# cb  20,10,20     20  100,200,0
-# cb  10,20,20     20  5,200,110
-# cb  -10,10,20     20  0,200,220
-
-py  0,10,0     30  0,0,200
-
-# l   -11,50,-13    0.8      255,255,255
-# l   -11,50,-13    0.8      255,255,255
-
-# cy  -20,30,20   1,0,0   10,15,55    12    10
-# cy2  -5,20,20   0,0,1   110,130,150   12    10
-# cy  10,5,20   1,0.5,-1   10,0,255    10    10
-# cy2  0,5,20   0,-1,0   10,0,255    10    10
-# cy  30,-5,10   0,1,0   10,255,0    12    20
-# cy2  -30,3,-30   0,1,0   10,80,0    12    20
-# cy  0,5,0   0.5,0,1   255,21,0    10    20
-# sq  30,10,-20  0.5,0.5,1  10   0,0,200
-# sq  10,1,-17  0,0,1  10   255,30,200
-# sq  15,10,-5  0,0,1  10   255,0,200
+sq  40,10,20  0.5,0.5,1  10   0,0,200
+# sq  0,10,20  0,1,0.5  10   255,30,200
+sq  10,10,20  0,0.3,1  10   255,0,200
 # sq  20,5,-10  0,0,1  20   0,255,200
+cy  -5,5,20   0,1,0.1   110,100,0  12  15
 
-# sq  10,2,-15  0,0,1  10   255,100,200
-# sq  -10,0,-20  0,0,1  10   255,0,200
-# sq  -10,10,-20  1,0,0  10   255,0,200
-# sq  20,0,-20  0.3,0.3,0.3  10   0,255,200
-# sq  -20,10,20  1,0,0  10   0,0,100
-# tr 10,20,10 10,10,20 20,10,10 0,0,255
-# tr 0,0,30 -10,0,20 10,0,20 0,0,255
-# tr 0,0,10 20,10,10 20,0,10 0,0,255
-# pl  0,-5,40   0,1,1     100,150,100
+# ---------bonus------------ #
+# cy2  -20,5,20   0,1,0.1   110,100,0  12  15
+# cy_r  -35,5,20   1,1,0.1     12  15
+# tr   10,5,10  10,20,15 10,15,20 0,200,50
+# cb  10,20,20     20  5,200,110
+# cb  20,10,20     20  100,200,0
+# cb  -10,10,20     20  0,200,220
+# py  0,10,0     30  0,0,200
+# cy_r  0,5,0   0.5,0.2,1   10    20
+# cy2  -30,3,-30   0,1,0   10,80,0    12    20
+# sp_c 0,10,20 	15 0,255,0
+# sp_r 0,10,0     10
+# sq_c 20,5,-10 1,1,1 20 0,255,0
