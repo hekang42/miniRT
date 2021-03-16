@@ -6,7 +6,7 @@
 #    By: hekang <hekang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 00:08:03 by hekang            #+#    #+#              #
-#    Updated: 2021/03/15 15:26:06 by hekang           ###   ########.fr        #
+#    Updated: 2021/03/16 13:42:47 by hekang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ MLXNAME = libmlx.dylib
 NAME	= miniRT
 
 GCC 	= GCC
-GCCFLAG = -Wall -Werror -Wextra
+GCCFLAG = -Wall -Werror -Wextra 
 #-g -fsanitize=address
 RM 		= rm -f
 

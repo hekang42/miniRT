@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:08:25 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 16:44:55 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 13:20:52 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int				exit_program(void)
 int				change_camera(void)
 {
 	t_img_data *data;
-
 
 	if (g_img_list->next)
 		g_img_list = g_img_list->next;
@@ -175,8 +174,6 @@ int				main(int argc, char *argv[])
 	n = 0;
 	draw_hittable(scene);
 	img_lst = dup_img(scene);
-
-	// data = ((t_camera *)(scene->cam->content))->data;
 	data = img_lst->content;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, data->width, data->height, "miniRT");
@@ -196,9 +193,6 @@ int				main(int argc, char *argv[])
 		return (0);
 	}
 	free_scene(scene);
-
-	printf("finish free\n");
-
 	mlx_show(vars, img, data);
 	mlx_hook(vars.win, X_KEY_PRESS, 0, mlx_key_handle, 0);
 	mlx_mouse_hook(vars.win, mouse_button_handle, 0);

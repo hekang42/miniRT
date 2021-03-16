@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 15:26:12 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 14:08:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 13:39:19 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void			reset_hit_record(t_hit_record *rec)
 {
 	if (rec->normal)
 		free(rec->normal);
+	free_ray(rec->ray, 0);
 	if (rec->p)
 		free(rec->p);
-	free_ray(rec->ray, 0);
 }
 
 void			free_hit_record(t_hit_record *rec)

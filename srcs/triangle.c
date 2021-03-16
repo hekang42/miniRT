@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:15:37 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/12 11:44:39 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 10:53:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,13 @@ int		triangle_hit(void *obj, t_ray *r, t_hit_record *rec)
 		return (free_tri_set(&tri_set));
 	rec->t = vec_dot(tri_set.v0v2, tri_set.qvec) * tri_set.invdet;
 	rec->color = tr->color;
+	if (rec->p)
+		free(rec->p);
+	if (rec->normal)
+		free(rec->normal);
 	rec->p = ray_at(r, rec->t);
 	rec->normal = vec_unit(vec_cross(tri_set.v0v1, tri_set.v0v2));
-	rec->p = vec_add(rec->p, vec_mul_const(rec->normal, 0.0000001));
+	// rec->p = vec_add_apply(rec->p, vec_mul_const(rec->normal, 0.0000001));
 	free_tri_set(&tri_set);
 	return (TRUE);
 }

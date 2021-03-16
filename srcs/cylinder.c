@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 09:09:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 17:39:43 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 09:34:48 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
 	p = ray_at(r, c.root);
 	c.cp = vec_sub(p, cy->origin);
 	tmp = vec_mul_const(cy->normal, vec_dot(c.cp, cy->normal));
-	normal = vec_unit(vec_sub(p, vec_add_apply(tmp, cy->origin)));
-	free(tmp);
+	normal = vec_unit(vec_sub_apply(vec_add_apply(tmp, cy->origin), p));
 	if ((0 < vec_dot(c.cp, cy->normal)) &&
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
@@ -64,6 +63,8 @@ int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
 		free(c.cp);
 		return (TRUE);
 	}
+	free(p);
+	free(normal);
 	free(c.cp);
 	return (FALSE);
 }
@@ -84,8 +85,7 @@ int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
 	p = ray_at(r, c.root);
 	c.cp = vec_sub(p, cy->origin);
 	tmp = vec_mul_const(cy->normal, vec_dot(c.cp, cy->normal));
-	normal = vec_unit(vec_sub(p, vec_add_apply(tmp, cy->origin)));
-	free(tmp);
+	normal = vec_unit(vec_sub_apply(vec_add_apply(tmp, cy->origin), p));
 	if ((0 < vec_dot(c.cp, cy->normal)) &&
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
@@ -100,6 +100,8 @@ int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
 		free(c.cp);
 		return (TRUE);
 	}
+	free(p);
+	free(normal);
 	free(c.cp);
 	return (FALSE);
 }

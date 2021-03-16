@@ -6,35 +6,11 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:26:06 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 16:12:34 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 13:26:18 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// void			camlst_add(t_scene *scene, t_camera *cam)
-// {
-// 	t_list		*begin;
-// 	int			cnt;
-
-// 	cnt = scene->n_cam;
-// 	begin = scene->cam;
-// 	if (scene->cam->content)
-// 	{
-// 		while (cnt--)
-// 			scene->cam = scene->cam->next;
-// 		scene->cam->next = init_list();
-// 		scene->cam->next->content = cam;
-// 		scene->cam->next->next = begin;
-// 	}
-// 	else
-// 	{
-// 		scene->cam->content = cam;
-// 		scene->cam->next = scene->cam;
-// 	}
-// 	cam->data = create_img_data(scene->img->width, scene->img->height);
-// 	scene->cam = begin;
-// }
 
 void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam)
 {
@@ -45,9 +21,9 @@ void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam)
 		lst->next = init_list();
 		lst = lst->next;
 	}
+	cam->data = create_img_data(scene->img->width, scene->img->height);
 	lst->content = cam;
-
-	((t_camera *)(lst->content))->data = create_img_data(scene->img->width, scene->img->height);
+	// ((t_camera *)(lst->content))->data = create_img_data(scene->img->width, scene->img->height);
 }
 
 void			set_camera_llc(t_camera *cam, t_vec *lookat)

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:59:16 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 17:23:08 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 12:10:37 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int				square_hit(void *obj, t_ray *r, t_hit_record *rec)
 	t_square	*sq;
 	t_vec		*oc;
 	double		t;
+	t_vec		*p;
 
 	sq = ((t_square *)obj);
 	denominator = vec_dot(sq->normal, r->dir);
@@ -54,11 +55,12 @@ int				square_hit(void *obj, t_ray *r, t_hit_record *rec)
 	free(oc);
 	if (t < rec->t_min || t > rec->t_max)
 		return (FALSE);
-	if (rec->p)
-		free(rec->p);
-	rec->p = ray_at(r, t);
-	if (vec_each_len(vec_sub(rec->p, sq->origin), sq->size / 2, sq->normal))
+	p = ray_at(r, t);
+	if (vec_each_len(vec_sub(p, sq->origin), sq->size / 2, sq->normal))
 	{
+		if (rec->p)
+			free(rec->p);
+		rec->p = p;
 		if (rec->normal)
 			free(rec->normal);
 		rec->t = t;
@@ -66,5 +68,6 @@ int				square_hit(void *obj, t_ray *r, t_hit_record *rec)
 		rec->color = sq->color;
 		return (TRUE);
 	}
+	free(p);
 	return (FALSE);
 }

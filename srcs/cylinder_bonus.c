@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:03:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 17:32:15 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/16 10:28:49 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,13 @@ int				cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
 	t = vec_dot(p, cy->normal) / denominator;
 	free(p);
 	if (t < rec->t_min || t > rec->t_max)
+	{
+		free(c);
 		return (FALSE);
+	}
 	p = ray_at(r, t);
 	tmp = vec_sub(p, c);
+	free(c);
 	if (draw_circle(tmp, cy->diameter / 2, cy->normal))
 	{
 		if (rec->p)
@@ -71,10 +75,9 @@ int				cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
 		rec->t = t;
 		rec->normal = vec_unit(vec_create(cy->normal->x, cy->normal->y, cy->normal->z));
 		rec->color = cy->color;
-		free(c);
 		return (TRUE);
 	}
-	free(c);
+	free(p);
 	return (FALSE);
 }
 
@@ -109,5 +112,6 @@ int				cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec)
 		rec->color = cy->color;
 		return (TRUE);
 	}
+	free(p);
 	return (FALSE);
 }
