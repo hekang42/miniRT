@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:36:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 12:44:36 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:05:49 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void			free_object(t_hittable *obj)
 		free_plane(obj->obj);
 	if (obj->obj_type == OBJ_SQUARE || obj->obj_type == OBJ_SQUARE_CHECKER)
 		free_square(obj->obj);
-	if (obj->obj_type == OBJ_CYLINDER || obj->obj_type == OBJ_CYLINDER_RAINBOW)
+	if (obj->obj_type == OBJ_CYLINDER || obj->obj_type == OBJ_CYLINDER_RAINBOW
+										|| obj->obj_type == OBJ_CONE)
 		free_cylinder(obj->obj);
 	if (obj->obj_type == OBJ_TRIANGLE)
 		free_triangle(obj->obj);

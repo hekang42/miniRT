@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 22:23:28 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 12:47:22 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:05:01 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,35 @@ int				parse_antialiasing(t_scene *scene, char *line)
 		return (0);
 	}
 	scene->anti = ft_atod(s[1]);
+	free_array((void **)s);
+	return (1);
+}
+
+int				parse_cone(t_scene *scene, char *line)
+{
+	char		**s;
+	t_cylinder	*cone;
+	char		**tmp;
+
+	s = ft_split(line, ' ');
+	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
+	{
+		printf("ERROR : Init Cylinder Rainbow\n");
+		return (0);
+	}
+	cone = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
+	tmp = ft_split(s[1], ',');
+	cone->origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
+	free_array((void **)tmp);
+	tmp = ft_split(s[2], ',');
+	cone->color = vec_create(ft_atod(tmp[0]),
+		ft_atod(tmp[1]), ft_atod(tmp[2]));
+	free_array((void **)tmp);
+	cone->normal = vec_unit(vec_create(1, -1, 0));
+	cone->diameter = ft_atod(s[3]);
+	cone->height = ft_atod(s[4]);
+	hitlst_add(scene->obj, (void *)cone, OBJ_CONE);
+	hitlst_add(scene->obj, (void *)cone, OBJ_CYLINDER_CAP);
 	free_array((void **)s);
 	return (1);
 }

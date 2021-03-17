@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:35:58 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 17:30:28 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:05:26 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void			free_plane(t_plane *pl)
 	free(pl->normal);
 	free(pl->p);
 	free(pl);
-
 }
 
 void			free_square(t_square *sq)

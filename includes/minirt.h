@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 12:02:43 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:06:00 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define OBJ_SQUARE_CHECKER 11
 # define OBJ_CYLINDER_RAINBOW 12
 # define OBJ_CYLINDER_RAINBOW_2 13
+# define OBJ_CONE 14
 # define ANTI_SAMPLES 1
 # define REFLECT_DEPTH 5
 # define X_KEY_PRESS 2
@@ -167,4 +168,6 @@ int				parse_filter(t_scene *scene, char *line);
 double			ft_random(void);
 void			draw_hittable_anti(t_scene *scene);
 int				parse_antialiasing(t_scene *scene, char *line);
+int				parse_cone(t_scene *scene, char *line);
+int				cone_hit(void *obj, t_ray *r, t_hit_record *rec);
 #endif

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:14:55 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 22:44:26 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:06:19 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ t_hittable			*hittable_create(void *obj, int obj_type)
 		result->hit = &cylinder_hit_rainbow;
 	else if (obj_type == OBJ_CYLINDER_RAINBOW_2)
 		result->hit = &cylinder_hit_rainbow_2;
+	else if (obj_type == OBJ_CONE)
+		result->hit = &cone_hit;
 	return (result);
 }
