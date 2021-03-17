@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:03:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 10:28:49 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:01:40 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,11 @@ int				cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
 	free(c);
 	if (draw_circle(tmp, cy->diameter / 2, cy->normal))
 	{
-		if (rec->p)
-			free(rec->p);
-		if (rec->normal)
-			free(rec->normal);
+		reset_hit_record(rec);
 		rec->p = p;
 		rec->t = t;
-		rec->normal = vec_unit(vec_create(cy->normal->x, cy->normal->y, cy->normal->z));
-		rec->color = cy->color;
+		rec->normal = vec_create(cy->normal->x, cy->normal->y, cy->normal->z);
+		rec->color = vec_mul_const(cy->color, 1);
 		return (TRUE);
 	}
 	free(p);
@@ -102,14 +99,11 @@ int				cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec)
 	oc = vec_sub(p, cy->origin);
 	if (draw_circle(oc, cy->diameter / 2, cy->normal))
 	{
-		if (rec->p)
-			free(rec->p);
-		if (rec->normal)
-			free(rec->normal);
+		reset_hit_record(rec);
 		rec->p = p;
 		rec->t = t;
-		rec->normal = vec_unit(vec_create(cy->normal->x, cy->normal->y, cy->normal->z));
-		rec->color = cy->color;
+		rec->normal = vec_create(cy->normal->x, cy->normal->y, cy->normal->z);
+		rec->color = vec_mul_const(cy->color, 1);
 		return (TRUE);
 	}
 	free(p);

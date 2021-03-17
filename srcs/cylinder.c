@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 09:09:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 23:03:30 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:00:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,10 @@ int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec)
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
 		rec->t = c.root;
-		if (rec->p)
-			free(rec->p);
+		reset_hit_record(rec);
 		rec->p = p;
-		if (rec->normal)
-			free(rec->normal);
 		rec->normal = normal;
-		rec->color = cy->color;
+		rec->color = vec_mul_const(cy->color, 1);
 		free(c.cp);
 		return (TRUE);
 	}
@@ -92,13 +89,10 @@ int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec)
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
 		rec->t = c.root;
-		if (rec->p)
-			free(rec->p);
+		reset_hit_record(rec);
 		rec->p = p;
-		if (rec->normal)
-			free(rec->normal);
 		rec->normal = normal;
-		rec->color = cy->color;
+		rec->color = vec_mul_const(cy->color, 1);
 		free(c.cp);
 		return (TRUE);
 	}

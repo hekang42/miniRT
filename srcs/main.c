@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:08:25 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 13:20:52 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 11:57:00 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_vars		g_vars;
 
 int				exit_program(void)
 {
-	// mlx_destroy_image(g_vars.mlx, g_img);
 	mlx_destroy_window(g_vars.mlx, g_vars.win);
 	exit(0);
 	return (0);
@@ -172,7 +171,10 @@ int				main(int argc, char *argv[])
 	scene = parse(argv[1]);
 
 	n = 0;
-	draw_hittable(scene);
+	if (scene->anti)
+		draw_hittable_anti(scene);
+	else
+		draw_hittable(scene);
 	img_lst = dup_img(scene);
 	data = img_lst->content;
 	vars.mlx = mlx_init();

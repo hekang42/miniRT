@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:36:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 13:22:59 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 12:44:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 void			free_object(t_hittable *obj)
 {
-	if (obj->obj_type == OBJ_SPHERE)
+	if (obj->obj_type == OBJ_SPHERE || obj->obj_type == OBJ_SPHERE_CHECKER
+		|| obj->obj_type == OBJ_SPHERE_RAINBOW)
 		free_sphere(obj->obj);
 	if (obj->obj_type == OBJ_PLANE)
 		free_plane(obj->obj);
-	if (obj->obj_type == OBJ_SQUARE)
+	if (obj->obj_type == OBJ_SQUARE || obj->obj_type == OBJ_SQUARE_CHECKER)
 		free_square(obj->obj);
-	if (obj->obj_type == OBJ_CYLINDER)
+	if (obj->obj_type == OBJ_CYLINDER || obj->obj_type == OBJ_CYLINDER_RAINBOW)
 		free_cylinder(obj->obj);
 	if (obj->obj_type == OBJ_TRIANGLE)
 		free_triangle(obj->obj);

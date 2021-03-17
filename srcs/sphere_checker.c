@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 20:17:35 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 20:19:02 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:02:55 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,13 @@ int			sphere_hit_checker(void *obj, t_ray *r, t_hit_record *rec)
 		|| (-s.half_b - s.sqrtd) / s.a < rec->t_min)
 		return (FALSE);
 	rec->t = s.root;
-	if (rec->p)
-		free(rec->p);
+	reset_hit_record(rec);
 	rec->p = ray_at(r, s.root);
-	if (rec->normal)
-		free(rec->normal);
 	rec->normal = vec_unit(vec_sub(rec->p, sp->center));
-	// rec->color = sp->color;
 	get_sphere_uv(rec);
 	if ((int)(floor(rec->u * 10) + floor(rec->v * 10)) % 2 == 1)
-		rec->color = sp->color;
+		rec->color = vec_mul_const(sp->color, 1);
 	else
 		rec->color = vec_create(255,255,255);
-	// rainbow
-		// rec->color = vec_mul_const(vec_add(rec->normal, vec_create(1, 1, 1)), 255 / 2);
 	return (TRUE);
 }

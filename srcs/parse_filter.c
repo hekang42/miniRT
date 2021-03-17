@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_scene.c                                       :+:      :+:    :+:   */
+/*   parse_filter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 20:12:51 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 11:49:35 by hekang           ###   ########.fr       */
+/*   Created: 2021/03/17 09:32:31 by hekang            #+#    #+#             */
+/*   Updated: 2021/03/17 09:47:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_scene			*init_scene(void)
+int				parse_filter(t_scene *scene, char *line)
 {
-	t_scene		*result;
-
-	result = (t_scene *)ft_calloc(1, sizeof(t_scene));
-	result->n_cam = 0;
-	result->obj = init_list();
-	result->cam = init_list();
-	result->light = init_list();
-	result->sepia = FALSE;
-	result->anti = 0;
-	return (result);
+	while (line[0] == ' ')
+		line++;
+	if (ft_strnstr(line, "sepia ", 6))
+		scene->sepia = TRUE;
+	return (0);
 }

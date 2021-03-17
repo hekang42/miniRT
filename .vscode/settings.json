@@ -11,6 +11,7 @@
 		"unordered_map": "c",
 		"vector": "c",
 		"__locale": "c",
-		"ratio": "c"
+		"ratio": "c",
+		"minirt.h": "c"
 	}
 }

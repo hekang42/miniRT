@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 20:13:06 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 09:32:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void			parse_rt(t_scene *scene, char *line)
 	else if (parse_obj(scene, line))
 		return ;
 	else if (parse_bonus(scene, line))
+		return ;
+	else if (parse_filter(scene, line))
 		return ;
 }
 

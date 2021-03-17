@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 20:10:09 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 22:47:27 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 12:03:01 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,9 @@ int			parse_bonus(t_scene *scene, char *line)
 		parse_square_checker(scene, line);
 	else if (ft_strnstr(line, "cy_r ", 5))
 		parse_cylinder_rainbow(scene, line);
+	else if (ft_strnstr(line, "anti ", 5))
+		parse_antialiasing(scene, line);
+	else
+		return (0);
 	return (1);
 }

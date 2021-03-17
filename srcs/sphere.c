@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 21:46:15 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:03:22 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,10 @@ int			sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 		|| (-s.half_b - s.sqrtd) / s.a < rec->t_min)
 		return (FALSE);
 	rec->t = s.root;
-	if (rec->p)
-		free(rec->p);
+	reset_hit_record(rec);
 	rec->p = ray_at(r, s.root);
-	if (rec->normal)
-		free(rec->normal);
 	rec->normal = vec_unit(vec_sub(rec->p, sp->center));
-	rec->color = sp->color;
+	rec->color = vec_mul_const(sp->color, 1);
 	get_sphere_uv(rec);
 	// Normal disruption 
 	// rec->normal = vec_unit(vec_add(rec->normal, vec_mul_const(vec_create(1, 1, 1), 0.5 * sin(rec->v * 100))));

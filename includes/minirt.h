@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 22:46:31 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 12:02:43 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define OBJ_SQUARE_CHECKER 11
 # define OBJ_CYLINDER_RAINBOW 12
 # define OBJ_CYLINDER_RAINBOW_2 13
-# define ANTI_SAMPLES 50
+# define ANTI_SAMPLES 1
 # define REFLECT_DEPTH 5
 # define X_KEY_PRESS 2
 # define X_KEY_RELEASE 3
@@ -82,7 +82,7 @@ t_vec			*ray_at(t_ray *ray, double t);
 t_ray			*create_ray(t_vec *origin, t_vec *direction);
 void			free_ray(t_ray *ray, int is_ray_free);
 double			clamp(double x, double min, double max);
-int				get_color(t_vec *color);
+int				get_color(t_scene *scene,t_vec *color);
 t_vec			*ray_color(t_ray *r);
 t_camera		*create_cam(double aspect_ratio);
 void			draw_sky(t_img_data *data, t_camera *cam);
@@ -163,7 +163,8 @@ int				parse_square_checker(t_scene *scene, char *line);
 t_cy_set		set_cylinder_var(t_cylinder *cy, t_ray *r, int type);
 int				cylinder_hit_rainbow(void *obj, t_ray *r, t_hit_record *rec);
 int				cylinder_hit_rainbow_2(void *obj, t_ray *r, t_hit_record *rec);
-
-
-
+int				parse_filter(t_scene *scene, char *line);
+double			ft_random(void);
+void			draw_hittable_anti(t_scene *scene);
+int				parse_antialiasing(t_scene *scene, char *line);
 #endif

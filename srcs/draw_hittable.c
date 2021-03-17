@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:18:41 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 09:31:39 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 12:34:08 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,50 @@ void				draw_hittable(t_scene *scene)
 				((t_camera *)(scene->cam->content))->data->img[var.x][var.y] =
 					cal_hittable_color(scene, rec);
 				free_hit_record(rec);
+			}
+		}
+		scene->cam = scene->cam->next;
+		var.y = scene->img->height;
+		var.n++;
+	}
+	scene->cam = cam_begin;
+}
+
+void				draw_hittable_anti(t_scene *scene)
+{
+	t_hit_record	*rec;
+	t_draw_var		var;
+	t_list			*cam_begin;
+	t_vec			color;
+	int				cal;
+	var.n = 0;
+	var.y = scene->img->height;
+	cam_begin = scene->cam;
+	while (var.n < scene->n_cam)
+	{
+		while ((--var.y) >= 0)
+		{
+			var.x = -1;
+			while ((++var.x) < scene->img->width)
+			{
+				var.anti = 0;
+				color = (t_vec){0, 0, 0};
+				while (var.anti++ < scene->anti)
+				{
+					var.u = (double)(var.x + ft_random()) / (scene->img->width - 1);
+					var.v = (double)(var.y + ft_random()) / (scene->img->height - 1);
+					rec = hit_record_new();
+					rec->ray = camera_get_ray(scene->cam->content, var.u, var.v);
+					cal = cal_hittable_color(scene, rec);
+					color.x += cal >> 16;
+					color.y += cal >> 8 & 0b11111111;
+					color.z += cal & 0b11111111;
+					free_hit_record(rec);
+				}
+				((t_camera *)(scene->cam->content))->data->img[var.x][var.y] =
+					((int)(color.x / scene->anti) << 16) | 
+					((int)(color.y / scene->anti) << 8) |
+					(int)(color.z / scene->anti);
 			}
 		}
 		scene->cam = scene->cam->next;

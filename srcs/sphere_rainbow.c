@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 20:26:54 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 21:31:32 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:29:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ int			sphere_hit_rainbow(void *obj, t_ray *r, t_hit_record *rec)
 	if ((-s.half_b + s.sqrtd) / s.a < rec->t_min
 		|| (-s.half_b - s.sqrtd) / s.a < rec->t_min)
 		return (FALSE);
-	rec->t = s.root;
-	if (rec->p)
-		free(rec->p);
+	rec->t = s.root;	
+	reset_hit_record(rec);
 	rec->p = ray_at(r, s.root);
-	if (rec->normal)
-		free(rec->normal);
 	rec->normal = vec_unit(vec_sub(rec->p, sp->center));
-	rec->color = vec_mul_const(vec_add(rec->normal, vec_create(1, 1, 1)), 255 / 2);
+	rec->color = vec_mul_const_apply(vec_add_apply(vec_create(1, 1, 1), rec->normal), 255 / 2);
 	return (TRUE);
 }

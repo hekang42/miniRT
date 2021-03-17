@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:48:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 17:14:20 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:40:34 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,28 @@ int					lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec)
 	free(diffuse);
 	free(specular);
 	free(ambient);
-	return (get_color(tmp));
+	return (get_color(scene, tmp));
 }
 
-int					get_color(t_vec *color)
+int					get_color(t_scene *scene, t_vec *color)
 {
 	int				x;
 	int				y;
 	int				z;
 
-	x = clamp(color->x, 0, 255);
-	y = clamp(color->y, 0, 255);
-	z = clamp(color->z, 0, 255);
-	free(color);
+	if (!scene->sepia)
+	{
+		x = clamp(color->x, 0, 255);
+		y = clamp(color->y, 0, 255);
+		z = clamp(color->z, 0, 255);
+		free(color);
+	}
+	else
+	{
+		x = clamp(0.393 * color->x + 0.769 * color->y + 0.189 * color->z, 0, 255);
+		y = clamp(0.349 * color->x + 0.686 * color->y + 0.168 * color->z, 0, 255);
+		z = clamp(0.272 * color->x + 0.534 * color->y + 0.131 * color->z, 0, 255);
+		free(color);
+	}
 	return (x << 16 | y << 8 | z);
 }

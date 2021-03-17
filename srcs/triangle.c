@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:15:37 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 22:59:27 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:03:59 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int		triangle_hit(void *obj, t_ray *r, t_hit_record *rec)
 	tri_set.v0v2 = vec_sub(tr->p2, tr->p0);
 	tri_set.pvec = vec_cross(r->dir, tri_set.v0v2);
 	tri_set.det = vec_dot(tri_set.v0v1, tri_set.pvec);
-	// if (fabs(tri_set.det) < 0.00000001)
-	// 	return (free_tri_set(&tri_set));
 	tri_set.invdet = 1 / tri_set.det;
 	tri_set.tvec = vec_sub(r->orig, tr->p0);
 	u = vec_dot(tri_set.tvec, tri_set.pvec) * tri_set.invdet;
@@ -53,13 +51,9 @@ int		triangle_hit(void *obj, t_ray *r, t_hit_record *rec)
 	if (t > rec->t_max || t < rec->t_min)
 		return (free_tri_set(&tri_set));
 	rec->t = t;
-	rec->color = tr->color;
-	if (rec->p)
-		free(rec->p);
-	if (rec->normal)
-		free(rec->normal);
+	reset_hit_record(rec);
+	rec->color = vec_mul_const(tr->color, 1);
 	rec->p = ray_at(r, rec->t);
-	// rec->normal = vec_unit(vec_cross(tri_set.v0v2, tri_set.v0v1));
 	rec->normal = vec_unit(vec_cross(tri_set.v0v1, tri_set.v0v2));
 	free_tri_set(&tri_set);
 	return (TRUE);

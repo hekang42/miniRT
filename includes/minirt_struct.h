@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 17:06:05 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 11:32:57 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct		s_scene
 	t_list			*light;
 	t_list			*obj;
 	int				n_cam;
+	int				sepia;
+	int				anti;
 }					t_scene;
 
 typedef struct		s_triangle
@@ -192,6 +194,7 @@ typedef struct		s_draw_var
 	double			u;
 	double			v;
 	int				n;
+	int				anti;
 }					t_draw_var;
 
 typedef struct		s_specular_var
