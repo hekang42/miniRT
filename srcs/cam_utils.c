@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:26:06 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 13:26:18 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:58:42 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_camera		*init_cam(t_scene *scene, t_vec *lookfrom,
 		free(vup);
 		vup = vec_create(1, 0, 0);
 	}
-
 	result = (t_camera *)ft_calloc(1, sizeof(t_camera));
 	result->fov = hfov;
 	view_w = 2 * tan(hfov / 2.0);

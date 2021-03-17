@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 09:32:15 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 21:21:14 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_scene			*parse(char *rt_file)
 	fd = open(rt_file, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("ERROR : rt file path\n");
+		printf("Error\n : rt file path\n");
 		close(fd);
 		return (0);
 	}
@@ -83,5 +83,15 @@ t_scene			*parse(char *rt_file)
 		free(line);
 	}
 	close(fd);
+	if (!scene->Resolution)
+	{
+		printf("Error\n ** Must have 1 Resolution.\n");
+		exit(EXIT_SUCCESS);
+	}
+	if (!scene->Ambient)
+	{
+		printf("Error\n ** Must have 1 Ambient.\n");
+		exit(EXIT_SUCCESS);
+	}
 	return (scene);
 }

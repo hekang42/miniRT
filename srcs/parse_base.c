@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:52:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 20:10:29 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 21:02:48 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,17 @@ int			parse_resolution(t_scene *scene, char *line)
 			x = ft_atoi(s[1]);
 		if (ft_atoi(s[2]) < y)
 			y = ft_atoi(s[2]);
-		// scene->img = create_img_data(x, y);
 		scene->img = (t_img_data *)ft_calloc(1, sizeof(t_img_data));
 		scene->img->height = y;
 		scene->img->width = x;
-		printf("resolution %d %d\n", scene->img->height, scene->img->width);
 	}
 	else
 	{
-		printf("ERROR : Init RESOLUTION\n");
-		return (0);
+		printf("Error\n : Init RESOLUTION\n");
+		exit(EXIT_SUCCESS);
 	}
 	free_array((void **)s);
-	return (1);
+	return (scene->Resolution++);
 }
 
 int			parse_ambient(t_scene *scene, char *line)
@@ -53,14 +51,14 @@ int			parse_ambient(t_scene *scene, char *line)
 	c = ft_split(s[2], ',');
 	if ((s == 0 || c == 0) && !s[3])
 	{
-		printf("ERROR : Init AMBIENT\n");
-		return (0);
+		printf("Error\n : Init AMBIENT\n");
+		exit(EXIT_SUCCESS);
 	}
 	color = vec_create(ft_atod(c[0]), ft_atod(c[1]), ft_atod(c[2]));
 	scene->ambient = init_ambient(ft_atod(s[1]), color);
 	free_array((void **)c);
 	free_array((void **)s);
-	return (1);
+	return (scene->Ambient++);
 }
 
 int			parse_camera(t_scene *scene, char *line)
@@ -74,10 +72,15 @@ int			parse_camera(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	lookfrom = ft_split(s[1], ',');
 	looknormal = ft_split(s[2], ',');
+	if (!scene->Resolution)
+	{
+		printf("Error\n ** Must have Resolution\n");
+		exit(EXIT_SUCCESS); 
+	}
 	if ((s == 0 || lookfrom == 0 || looknormal == 0) && !s[3])
 	{
-		printf("ERROR : Init Camera\n");
-		return (0);
+		printf("Error\n : Init Camera\n");
+		exit(EXIT_SUCCESS);
 	}
 	scene->n_cam++;
 	from = vec_create(ft_atoi(lookfrom[0]),
@@ -101,6 +104,11 @@ int			parse_light(t_scene *scene, char *line)
 	t_vec	*color;
 
 	s = ft_split(line, ' ');
+	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
+	{
+		printf("Error\n : Init light\n");
+		exit(EXIT_SUCCESS);
+	}
 	vec_tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atoi(vec_tmp[0]),
 	ft_atoi(vec_tmp[1]), ft_atoi(vec_tmp[2]));

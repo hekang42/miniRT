@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 20:06:00 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 21:19:28 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define REFLECT_DEPTH 5
 # define X_KEY_PRESS 2
 # define X_KEY_RELEASE 3
+# define X_EVENT_KEY_EXIT 17
 
 # define TRUE 1
 # define FALSE 0

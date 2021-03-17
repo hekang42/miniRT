@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:04:48 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 11:32:57 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:50:39 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ typedef struct		s_scene
 	int				n_cam;
 	int				sepia;
 	int				anti;
+	int				Resolution;
+	int				Ambient;
 }					t_scene;
 
 typedef struct		s_triangle

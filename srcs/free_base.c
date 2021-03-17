@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:38:04 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 13:25:14 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 21:21:22 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,12 @@
 
 void			free_cam(t_camera *cam)
 {
-	printf("cam origin %f\n", cam->origin->z);
 	free_array((void **)cam->data->img);
-	printf("cam origin %f\n", cam->origin->z);
-		free(cam->data);
-	// cam->data = NULL;
-	// if (cam->horizontal)
-		free(cam->horizontal);
-	// if (cam->lower_left_corner)
-		free(cam->lower_left_corner);
-	// if (cam->origin)
-		free(cam->origin);
-	// if (cam->vertical)
-		free(cam->vertical);
-	printf("free cam\n");
+	free(cam->data);
+	free(cam->horizontal);
+	free(cam->lower_left_corner);
+	free(cam->origin);
+	free(cam->vertical);
 }
 
 void			free_cam_list(t_list *list)
@@ -62,7 +54,6 @@ void			free_light_list(t_list *list)
 
 	while (list->content)
 	{
-		printf("ligghgghght\n");
 		free_light(list->content);
 		free(list->content);
 		list->content = NULL;

@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:11:19 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 16:43:52 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:45:11 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int				parse_plane(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
 	{
-		printf("ERROR : Init Plane\n");
-		return (0);
+		printf("Error\n : Init Plane\n");
+		exit(EXIT_SUCCESS);
 	}
 	tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
@@ -54,8 +54,8 @@ int				parse_sphere(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
 	{
-		printf("ERROR : Init Sphere\n");
-		return (0);
+		printf("Error\n : Init Sphere\n");
+		exit(EXIT_SUCCESS);
 	}
 	tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
@@ -79,8 +79,8 @@ int				parse_triangle(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
 	{
-		printf("ERROR : Init Triangle\n");
-		return (0);
+		printf("Error\n : Init Triangle\n");
+		exit(EXIT_SUCCESS);
 	}
 	tri = (t_triangle *)ft_calloc(1, sizeof(t_triangle));
 	tmp = ft_split(s[1], ',');
@@ -109,8 +109,8 @@ int				parse_square(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
 	{
-		printf("ERROR : Init Triangle\n");
-		return (0);
+		printf("Error\n : Init Square\n");
+		exit(EXIT_SUCCESS);
 	}
 	sq = (t_square *)ft_calloc(1, sizeof(t_square));
 	tmp = ft_split(s[1], ',');
@@ -138,8 +138,8 @@ int				parse_cylinder(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || !s[5] || s[6])
 	{
-		printf("ERROR : Init Cylinder\n");
-		return (0);
+		printf("Error\n : Init Cylinder\n");
+		exit(EXIT_SUCCESS);
 	}
 	cy = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
 	tmp = ft_split(s[1], ',');

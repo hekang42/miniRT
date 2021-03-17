@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 22:23:28 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 20:05:01 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 21:22:58 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int				parse_square_checker(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
 	{
-		printf("ERROR : Init Square Checker\n");
-		return (0);
+		printf("Error\n : Init Square Checker\n");
+		exit(EXIT_SUCCESS);
 	}
 	sq = (t_square *)ft_calloc(1, sizeof(t_square));
 	tmp = ft_split(s[1], ',');
@@ -50,8 +50,8 @@ int				parse_cylinder_rainbow(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
 	{
-		printf("ERROR : Init Cylinder Rainbow\n");
-		return (0);
+		printf("Error\n : Init Cylinder Rainbow\n");
+		exit(EXIT_SUCCESS);
 	}
 	cy = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
 	tmp = ft_split(s[1], ',');
@@ -77,8 +77,8 @@ int				parse_antialiasing(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || s[2])
 	{
-		printf("ERROR : Init Antialiasing\n");
-		return (0);
+		printf("Error\n : Init Antialiasing\n");
+		exit(EXIT_SUCCESS);
 	}
 	scene->anti = ft_atod(s[1]);
 	free_array((void **)s);
@@ -94,8 +94,8 @@ int				parse_cone(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
 	{
-		printf("ERROR : Init Cylinder Rainbow\n");
-		return (0);
+		printf("Error\n : Init Cylinder Rainbow\n");
+		exit(EXIT_SUCCESS);
 	}
 	cone = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
 	tmp = ft_split(s[1], ',');

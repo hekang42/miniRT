@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:00:52 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 12:52:07 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:44:27 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int				parse_cylinder_2(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || !s[5] || s[6])
 	{
-		printf("ERROR : Init Cylinder_bonus\n");
-		return (0);
+		printf("Error\n : Init Cylinder_bonus\n");
+		exit(EXIT_SUCCESS);
 	}
 	cy = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
 	tmp = ft_split(s[1], ',');
@@ -54,8 +54,8 @@ int				parse_cube(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
 	{
-		printf("ERROR : Init Cube\n");
-		return (0);
+		printf("Error\n : Init Cube\n");
+		exit(EXIT_SUCCESS);
 	}
 	cb = (t_cube *)ft_calloc(1, sizeof(t_cube));
 	tmp = ft_split(s[1], ',');
@@ -83,8 +83,8 @@ int				parse_pyramid(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
 	{
-		printf("ERROR : Init Cube\n");
-		return (0);
+		printf("Error\n : Init Cube\n");
+		exit(EXIT_SUCCESS);
 	}
 	py = (t_pyramid *)ft_calloc(1, sizeof(t_pyramid));
 	tmp = ft_split(s[1], ',');
@@ -114,8 +114,8 @@ int					parse_sphere_checker(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
 	{
-		printf("ERROR : Init Sphere\n");
-		return (0);
+		printf("Error\n : Init Sphere\n");
+		exit(EXIT_SUCCESS);
 	}
 	tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
@@ -140,8 +140,8 @@ int					parse_sphere_rainbow(t_scene *scene, char *line)
 	s = ft_split(line, ' ');
 	if (s == 0 || !s[1] || !s[2] || s[3])
 	{
-		printf("ERROR : Init Sphere\n");
-		return (0);
+		printf("Error\n : Init Sphere\n");
+		exit(EXIT_SUCCESS);
 	}
 	tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));

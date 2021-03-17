@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:08:25 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 11:57:00 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 22:04:07 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vars		g_vars;
 
 int				exit_program(void)
 {
-	mlx_destroy_window(g_vars.mlx, g_vars.win);
+	// mlx_destroy_window(g_vars.mlx, g_vars.win);
 	exit(0);
 	return (0);
 }
@@ -38,8 +38,9 @@ int				change_camera(void)
 
 int				mlx_key_handle(int keycode)
 {
-	printf("keycode : %d\n", keycode);
 	if (keycode == 53)
+		return (exit_program());	
+	if (keycode == 17)
 		return (exit_program());
 	if (keycode == 8)
 		return (change_camera());
@@ -85,9 +86,6 @@ void			imglst_add(t_scene *scene, t_list *lst, int i)
 		x = -1;
 		while (++x < scene->img->width)
 			img->img[x][y] = ((t_camera *)(scene->cam->content))->data->img[x][y];
-	}
-		printf("%d \n", i);
-	{
 	}
 	if (lst->content)
 	{
@@ -149,7 +147,6 @@ t_list			*dup_img(t_scene *scene)
 int				main(int argc, char *argv[])
 {
 	t_scene		*scene;
-	int			n;
 	t_vars		vars;
 	t_img_data	*data;
 	t_mlx_data	*img;
@@ -159,18 +156,18 @@ int				main(int argc, char *argv[])
 	{
 		if (!ft_strnstr(argv[2], "--save", 6))
 		{
-			printf("ERROR : Input Argument\n");
+			printf("Error\n : Input Argument Must be '--save'\n");
 			return (0);
 		}
 	}
 	if (argc != 2 && argc != 3)
 	{
-		printf("ERROR : Input Argument\n");
+		printf("Error\n : Input Argument\n");
 		return (0);
 	}
 	scene = parse(argv[1]);
-
-	n = 0;
+	if (scene == NULL)
+		return (0);
 	if (scene->anti)
 		draw_hittable_anti(scene);
 	else
@@ -179,7 +176,6 @@ int				main(int argc, char *argv[])
 	data = img_lst->content;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, data->width, data->height, "miniRT");
-	printf("4444\n");
 	img = (t_mlx_data *)ft_calloc(1, sizeof(t_mlx_data));
 	img->img = mlx_new_image(vars.mlx, data->width, data->height);
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel), \
@@ -192,11 +188,13 @@ int				main(int argc, char *argv[])
 		printf("starting save bmp\n");
 		save_first_frame(img_lst->content, "image.bmp");
 		printf("Complete save bmp\n");
+		free_scene(scene);
 		return (0);
 	}
 	free_scene(scene);
 	mlx_show(vars, img, data);
 	mlx_hook(vars.win, X_KEY_PRESS, 0, mlx_key_handle, 0);
+	mlx_hook(vars.win, X_EVENT_KEY_EXIT, (1 << 5), exit_program, 0);
 	mlx_mouse_hook(vars.win, mouse_button_handle, 0);
 	mlx_loop(vars.mlx);
 }
