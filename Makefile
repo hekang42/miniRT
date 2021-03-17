@@ -6,7 +6,7 @@
 #    By: hekang <hekang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 00:08:03 by hekang            #+#    #+#              #
-#    Updated: 2021/03/17 19:35:56 by hekang           ###   ########.fr        #
+#    Updated: 2021/03/17 22:42:53 by hekang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ SRC		= img_utils.c main.c mlx_utils.c ray_utils.c vec_calc_apply.c vec_calc.c ve
 		draw_hittable.c hit_record.c plane.c light.c ambient.c parse.c \
 		gnl/get_next_line.c parse_base.c parse_obj.c triangle.c shadow.c square.c cylinder.c \
 		cylinder_bonus.c parse_obj_bonus.c cal_color.c bmp_save.c \
-		free_array.c free_base.c free_obj.c free_obj_2.c vec_unit.c cube.c pyramid.c \
-		get_uv.c uv_sphere.c parse_bonus.c sphere_checker.c init_scene.c sphere_rainbow.c \
-		square_checker.c parse_obj_bonus_2.c cylinder_rainbow.c parse_filter.c random.c cone.c
+		free_array.c free_base.c free_obj.c free_obj_2.c vec_unit.c cube_bonus.c pyramid_bonus.c \
+		get_uv.c uv_sphere_bonus.c parse_bonus.c sphere_checker_bonus.c init_scene.c sphere_rainbow_bonus.c \
+		square_checker_bonus.c parse_obj_2_bonus.c cylinder_rainbow_bonus.c parse_filter.c random.c cone_bonus.c
 
 SRCDIR	= ./srcs/
 SRCS 	= $(addprefix $(SRCDIR), $(SRC))
@@ -52,6 +52,8 @@ $(MLXNAME):
 
 all:		$(NAME)
 
+bonus:		all
+
 clean:
 		$(RM) $(OBJS) 
 		# *.bmp
@@ -63,4 +65,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re bonus

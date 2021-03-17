@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:36:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 20:05:49 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/17 23:08:18 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,12 @@ void			free_obj_list(t_list *list)
 
 void			free_scene(t_scene *scene)
 {
-	printf("free_list\n");
 	free_cam_list(scene->cam);
-	printf("free_cam\n");
 	free(scene->ambient->color);
 	free(scene->ambient);
 	free_light_list(scene->light);
-	printf("free_light\n");
 	free_obj_list(scene->obj);
-	printf("free_obj\n");
 	free(scene->img);
-	printf("free_img\n");
 	free(scene);
 
 }
