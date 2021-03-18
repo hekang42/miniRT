@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 17:17:46 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 13:53:21 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 19:57:53 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int					in_shadow(t_scene *scene, t_light *light, t_hit_record *rec)
 
 	rec_l = hit_record_new();
 	tmp = vec_mul_const(rec->normal, 0.000001);
-	p = vec_add(rec->p, tmp);
-	free(tmp);
+	p = vec_add_apply(tmp, rec->p);
 	light_ray = create_ray(p, vec_unit(vec_sub(light->origin, p)));
 	tmp = vec_sub(light->origin, p);
 	light_length = vec_len(tmp);
@@ -33,13 +32,11 @@ int					in_shadow(t_scene *scene, t_light *light, t_hit_record *rec)
 	rec_l->ray = light_ray;
 	if (!hitlst_hit(scene->obj, rec_l))
 	{
-		free_hit_record(rec_l);
-		free(p);
+		free_hit_record(rec_l, 1);
 		if (vec_dot(rec->normal, rec->ray->dir) > 0)
 			return (TRUE);
 		return (FALSE);
 	}
-	free_hit_record(rec_l);
-	free(p);
+	free_hit_record(rec_l, 1);
 	return (TRUE);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pyramid.c                                          :+:      :+:    :+:   */
+/*   pyramid_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:43:31 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/16 16:37:06 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:18:28 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void		pyramidtosquare(t_scene *scene, t_pyramid *py)
 	py->sq->origin = vec_mul_const(py->origin, 1);
 	py->sq->normal = vec_create(0, 1, 0);
 	py->sq->color = vec_mul_const(py->color, 1);
-	py->sq->size = py->size * 2 ;
+	py->sq->size = py->size * 2;
 	hitlst_add(scene->obj, (void *)py->sq, OBJ_SQUARE);
 }
 
 void		pyramidtotriangle_2(t_scene *scene, t_pyramid *py)
 {
 	t_vec	*tmp;
-	
+
 	py->tri3 = (t_triangle *)ft_calloc(1, sizeof(t_triangle));
 	py->tri4 = (t_triangle *)ft_calloc(1, sizeof(t_triangle));
 	py->tri3->color = vec_mul_const(py->color, 1);

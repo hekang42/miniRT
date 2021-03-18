@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:00:32 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 21:19:28 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 19:55:15 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_vec			*vec_cross(t_vec *u, t_vec *v);
 t_vec			*vec_unit(t_vec *u);
 t_hit_record	*hit_record_new(void);
 void			reset_hit_record(t_hit_record *rec);
-void			free_hit_record(t_hit_record *rec);
+void			free_hit_record(t_hit_record *rec, int n);
 int				hitlst_hit(t_list *lst, t_hit_record *rec);
 void			hit_set_normal(t_hit_record *record, t_ray *r);
 void			draw_hittable(t_scene *scene);
@@ -84,7 +84,7 @@ t_vec			*ray_at(t_ray *ray, double t);
 t_ray			*create_ray(t_vec *origin, t_vec *direction);
 void			free_ray(t_ray *ray, int is_ray_free);
 double			clamp(double x, double min, double max);
-int				get_color(t_scene *scene,t_vec *color);
+int				get_color(t_scene *scene, t_vec *color);
 t_vec			*ray_color(t_ray *r);
 t_camera		*create_cam(double aspect_ratio);
 void			draw_sky(t_img_data *data, t_camera *cam);
@@ -93,7 +93,7 @@ t_plane			*init_plane(t_vec *p, t_vec *normal, t_vec *albedo);
 t_light			*init_light(t_vec *ori, double ratio, t_vec *color);
 t_ambient		*init_ambient(double ratio, t_vec *color);
 t_camera		*init_cam(t_scene *scene, t_vec *lookfrom,
-			t_vec *lookat, double hfov);
+				t_vec *lookat, double hfov);
 int				vec_is_parallel(t_vec *a, t_vec *b);
 t_scene			*parse(char *rt_file);
 int				parse_resolution(t_scene *scene, char *line);
@@ -109,7 +109,7 @@ int				parse_cylinder_2(t_scene *scene, char *line);
 t_list			*init_list();
 void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam);
 void			mlx_draw_by_img_data(t_mlx_data *mlx_data,
-			t_img_data *img_data);
+				t_img_data *img_data);
 t_ray			*camera_get_ray(t_camera *cam, double u, double v);
 int				cal_hittable_color(t_scene *scene, t_hit_record *rec);
 int				triangle_hit(void *obj, t_ray *r, t_hit_record *rec);
@@ -121,14 +121,13 @@ int				cylinder_hit(void *obj, t_ray *r, t_hit_record *rec);
 int				cylinder_hit_2(void *obj, t_ray *r, t_hit_record *rec);
 int				cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec);
 int				cylinder_hit_bottom_cap(void *obj, t_ray *r,
-			t_hit_record *rec);
+				t_hit_record *rec);
 int				lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec);
 void			lightlst_add(t_list *lst, t_vec *ori, double ratio,
-			t_vec *color);
-int				save_first_frame(t_img_data *img, char *filename);
-
+				t_vec *color);
+int				save_first_frame(t_scene *scene, t_img_data *img,
+				char *filename);
 void			free_array(void **s);
-
 void			free_scene(t_scene *scene);
 void			free_obj_list(t_list *list);
 void			free_object(t_hittable *obj);
@@ -144,6 +143,7 @@ void			free_triangle(t_triangle *tr);
 t_vec			*vec_unit_apply(t_vec *u);
 void			cubetosquare(t_scene *scene, t_cube *cube);
 void			cubetosquare_2(t_scene *scene, t_cube *cube);
+void			cubetosquare_3(t_scene *scene, t_cube *cube);
 int				parse_cube(t_scene *scene, char *line);
 int				parse_pyramid(t_scene *scene, char *line);
 void			pyramidtotriangle(t_scene *scene, t_pyramid *py);
@@ -171,4 +171,16 @@ void			draw_hittable_anti(t_scene *scene);
 int				parse_antialiasing(t_scene *scene, char *line);
 int				parse_cone(t_scene *scene, char *line);
 int				cone_hit(void *obj, t_ray *r, t_hit_record *rec);
+void			parse_check(char **s, int n, char *type);
+void			free_2(void *a, void *b);
+void			free_3(void *a, void *b, void *c);
+void			free_4(void *a, void *b, void *c, void *d);
+t_vec			*vec_add_apply_free(t_vec *a, t_vec *b);
+int				mlx_key_handle(int keycode);
+int				change_camera(void);
+void			mlx_hook_utils(t_vars vars);
+t_list			*draw_scene(t_scene *scene);
+t_list			*dup_img(t_scene *scene);
+int				check_arg(int argc, char **argv);
+
 #endif

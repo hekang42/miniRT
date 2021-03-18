@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   vec_calc_apply_free.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 00:39:26 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/18 11:26:37 by hekang           ###   ########.fr       */
+/*   Created: 2021/03/18 15:30:02 by hekang            #+#    #+#             */
+/*   Updated: 2021/03/18 15:30:21 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minirt.h"
 
-void	*ft_calloc(size_t count, size_t size)
+t_vec	*vec_add_apply_free(t_vec *a, t_vec *b)
 {
-	void *str;
-
-	if (!(str = (void *)malloc(count * size)))
-	{
-		write(1, "Error\n ** Malloc Error **\n", 26);
-		exit(EXIT_SUCCESS);
-	}
-	if (str == 0)
-		return (0);
-	ft_memset(str, 0, count * size);
-	return (str);
+	a->x += b->x;
+	a->y += b->y;
+	a->z += b->z;
+	free(b);
+	return (a);
 }

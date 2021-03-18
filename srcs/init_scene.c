@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 20:12:51 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 21:07:38 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 16:59:04 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_scene			*init_scene(void)
 	result->light = init_list();
 	result->sepia = FALSE;
 	result->anti = 0;
-	result->Resolution = 0;
-	result->Ambient = 0;
+	result->resolution = 0;
+	result->amb = 0;
 	return (result);
 }

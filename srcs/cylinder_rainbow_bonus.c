@@ -6,11 +6,21 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 09:09:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 22:28:26 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 16:32:35 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void		set_rec(t_hit_record *rec, t_vec *p, t_vec *normal, double t)
+{
+	reset_hit_record(rec);
+	rec->p = p;
+	rec->normal = vec_mul_const_apply(normal, -1);
+	rec->color = vec_mul_const_apply(vec_add_apply(vec_create(1, 1, 1),
+				rec->normal), 255 / 2);
+	rec->t = t;
+}
 
 int				cylinder_hit_rainbow_2(void *obj, t_ray *r, t_hit_record *rec)
 {
@@ -29,21 +39,14 @@ int				cylinder_hit_rainbow_2(void *obj, t_ray *r, t_hit_record *rec)
 	c.cp = vec_sub(p, cy->origin);
 	tmp = vec_mul_const(cy->normal, vec_dot(c.cp, cy->normal));
 	normal = vec_unit(vec_sub_apply(vec_add_apply(tmp, cy->origin), p));
-	normal = vec_mul_const_apply(normal, -1);
 	if ((0 < vec_dot(c.cp, cy->normal)) &&
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
-		rec->t = c.root;
-		reset_hit_record(rec);
-		rec->p = p;
-		rec->normal = normal;
-		rec->color = vec_mul_const_apply(vec_add_apply(vec_create(1, 1, 1), rec->normal), 255 / 2);
+		set_rec(rec, p, normal, c.root);
 		free(c.cp);
 		return (TRUE);
 	}
-	free(p);
-	free(normal);
-	free(c.cp);
+	free_3(p, normal, c.cp);
 	return (FALSE);
 }
 
@@ -64,20 +67,13 @@ int				cylinder_hit_rainbow(void *obj, t_ray *r, t_hit_record *rec)
 	c.cp = vec_sub(p, cy->origin);
 	tmp = vec_mul_const(cy->normal, vec_dot(c.cp, cy->normal));
 	normal = vec_unit(vec_sub_apply(vec_add_apply(tmp, cy->origin), p));
-	normal = vec_mul_const_apply(normal, -1);
 	if ((0 < vec_dot(c.cp, cy->normal)) &&
 		(vec_dot(c.cp, cy->normal) < cy->height))
 	{
-		rec->t = c.root;
-		reset_hit_record(rec);
-		rec->p = p;
-		rec->normal = normal;
-		rec->color = vec_mul_const_apply(vec_add_apply(vec_create(1, 1, 1), rec->normal), 255 / 2);
+		set_rec(rec, p, normal, c.root);
 		free(c.cp);
 		return (TRUE);
 	}
-	free(p);
-	free(normal);
-	free(c.cp);
+	free_3(p, normal, c.cp);
 	return (FALSE);
 }

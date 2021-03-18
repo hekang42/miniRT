@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:26:06 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 20:58:42 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:22:47 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void			camlst_add(t_scene *scene, t_list *lst, t_camera *cam)
 	}
 	cam->data = create_img_data(scene->img->width, scene->img->height);
 	lst->content = cam;
-	// ((t_camera *)(lst->content))->data = create_img_data(scene->img->width, scene->img->height);
 }
 
 void			set_camera_llc(t_camera *cam, t_vec *lookat)

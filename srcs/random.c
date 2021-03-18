@@ -6,12 +6,12 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:27:38 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 11:40:01 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:51:54 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "math.h"
+
 double	ft_random(void)
 {
 	return (rand() / (RAND_MAX + 1.0));

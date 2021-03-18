@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:36:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 23:08:18 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:54:42 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,4 @@ void			free_scene(t_scene *scene)
 	free_obj_list(scene->obj);
 	free(scene->img);
 	free(scene);
-
 }

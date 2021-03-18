@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   square_checker.c                                   :+:      :+:    :+:   */
+/*   square_checker_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 22:21:07 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 13:03:30 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:43:18 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void		set_rec(t_square *sq, t_hit_record *rec, t_vec *p, double t)
+{
+	reset_hit_record(rec);
+	rec->p = p;
+	rec->t = t;
+	rec->normal = vec_create(sq->normal->x, sq->normal->y, sq->normal->z);
+	get_square_uv(rec, sq);
+	if ((int)(floor(rec->u * 20) + floor(rec->v * 20)) % 2 == 1)
+		rec->color = vec_mul_const(sq->color, 1);
+	else
+		rec->color = vec_create(255, 255, 255);
+}
 
 int				square_hit_checker(void *obj, t_ray *r, t_hit_record *rec)
 {
@@ -32,15 +45,7 @@ int				square_hit_checker(void *obj, t_ray *r, t_hit_record *rec)
 	p = ray_at(r, t);
 	if (vec_each_len(vec_sub(p, sq->origin), sq->size / 2, sq->normal, rec))
 	{
-		reset_hit_record(rec);
-		rec->p = p;
-		rec->t = t;
-		rec->normal = vec_create(sq->normal->x, sq->normal->y, sq->normal->z);
-		get_square_uv(rec, sq);
-		if ((int)(floor(rec->u * 20) + floor(rec->v * 20)) % 2 == 1)
-			rec->color = vec_mul_const(sq->color, 1);
-		else
-			rec->color = vec_create(255,255,255);
+		set_rec(sq, rec, p, t);
 		return (TRUE);
 	}
 	free(p);

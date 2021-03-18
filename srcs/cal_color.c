@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:48:50 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 13:40:34 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 19:37:59 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,16 @@ int					lightlst_hit(t_scene *scene, t_list *lst, t_hit_record *rec)
 		if (!in_shadow(scene, light, rec))
 		{
 			tmp = diffuse_color(light, rec);
-			diffuse = vec_add_apply(diffuse, tmp);
-			free(tmp);
+			diffuse = vec_add_apply_free(diffuse, tmp);
 			tmp = specular_color(light, rec);
-			specular = vec_add_apply(specular, tmp);
-			free(tmp);
+			specular = vec_add_apply_free(specular, tmp);
 		}
 		lst = lst->next;
 	}
 	tmp = vec_mul_each(vec_add(diffuse, specular), rec->color);
 	ambient = ambient_color(scene);
 	vec_add_apply(tmp, vec_mul_each(ambient, rec->color));
-	free(diffuse);
-	free(specular);
-	free(ambient);
+	free_3(diffuse, specular, ambient);
 	return (get_color(scene, tmp));
 }
 
@@ -101,9 +97,12 @@ int					get_color(t_scene *scene, t_vec *color)
 	}
 	else
 	{
-		x = clamp(0.393 * color->x + 0.769 * color->y + 0.189 * color->z, 0, 255);
-		y = clamp(0.349 * color->x + 0.686 * color->y + 0.168 * color->z, 0, 255);
-		z = clamp(0.272 * color->x + 0.534 * color->y + 0.131 * color->z, 0, 255);
+		x = clamp(0.393 * color->x + 0.769 * color->y + 0.189
+			* color->z, 0, 255);
+		y = clamp(0.349 * color->x + 0.686 * color->y + 0.168
+			* color->z, 0, 255);
+		z = clamp(0.272 * color->x + 0.534 * color->y + 0.131
+			* color->z, 0, 255);
 		free(color);
 	}
 	return (x << 16 | y << 8 | z);

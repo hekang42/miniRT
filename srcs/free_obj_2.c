@@ -6,12 +6,11 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:35:58 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 20:05:26 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 15:40:08 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 void			free_sphere(t_sphere *sp)
 {

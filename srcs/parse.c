@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:00:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 21:21:14 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 17:07:02 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,20 @@ void			parse_rt(t_scene *scene, char *line)
 		return ;
 }
 
+void			check_scene(t_scene *scene)
+{
+	if (!scene->resolution)
+	{
+		printf("Error\n ** Must have 1 Resolution.\n");
+		exit(EXIT_SUCCESS);
+	}
+	if (!scene->amb)
+	{
+		printf("Error\n ** Must have 1 Ambient.\n");
+		exit(EXIT_SUCCESS);
+	}
+}
+
 t_scene			*parse(char *rt_file)
 {
 	int			rd;
@@ -83,15 +97,8 @@ t_scene			*parse(char *rt_file)
 		free(line);
 	}
 	close(fd);
-	if (!scene->Resolution)
-	{
-		printf("Error\n ** Must have 1 Resolution.\n");
-		exit(EXIT_SUCCESS);
-	}
-	if (!scene->Ambient)
-	{
-		printf("Error\n ** Must have 1 Ambient.\n");
-		exit(EXIT_SUCCESS);
-	}
-	return (scene);
+	if (scene != NULL)
+		return (scene);
+	printf("Error\n : Parsing Scene\n");
+	exit(EXIT_SUCCESS);
 }

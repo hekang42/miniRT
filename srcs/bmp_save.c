@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 15:13:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 10:00:46 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 16:47:20 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,12 @@ void	write_body(t_img_data *img, t_frame_saver *sv)
 	}
 }
 
-int		save_first_frame(t_img_data *img, char *filename)
+int		save_first_frame(t_scene *scene, t_img_data *img, char *filename)
 {
 	int				fd;
 	t_frame_saver	sv;
 
+	printf("starting save bmp\n");
 	sv = (t_frame_saver) { 0 };
 	sv.size = 54 + 3 * img->width * img->height +
 		((4 - (img->width * 3) % 4) % 4) * img->height;
@@ -96,5 +97,7 @@ int		save_first_frame(t_img_data *img, char *filename)
 	write_body(img, &sv);
 	write(fd, sv.buf, sv.size);
 	close(fd);
+	printf("Complete save bmp\n");
+	free_scene(scene);
 	return (1);
 }

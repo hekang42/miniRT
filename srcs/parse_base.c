@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:52:39 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 21:02:48 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 17:00:36 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			parse_resolution(t_scene *scene, char *line)
 		exit(EXIT_SUCCESS);
 	}
 	free_array((void **)s);
-	return (scene->Resolution++);
+	return (scene->resolution++);
 }
 
 int			parse_ambient(t_scene *scene, char *line)
@@ -58,7 +58,7 @@ int			parse_ambient(t_scene *scene, char *line)
 	scene->ambient = init_ambient(ft_atod(s[1]), color);
 	free_array((void **)c);
 	free_array((void **)s);
-	return (scene->Ambient++);
+	return (scene->amb++);
 }
 
 int			parse_camera(t_scene *scene, char *line)
@@ -70,18 +70,9 @@ int			parse_camera(t_scene *scene, char *line)
 	t_vec	*normal;
 
 	s = ft_split(line, ' ');
+	parse_check(s, 3, "Camera");
 	lookfrom = ft_split(s[1], ',');
 	looknormal = ft_split(s[2], ',');
-	if (!scene->Resolution)
-	{
-		printf("Error\n ** Must have Resolution\n");
-		exit(EXIT_SUCCESS); 
-	}
-	if ((s == 0 || lookfrom == 0 || looknormal == 0) && !s[3])
-	{
-		printf("Error\n : Init Camera\n");
-		exit(EXIT_SUCCESS);
-	}
 	scene->n_cam++;
 	from = vec_create(ft_atoi(lookfrom[0]),
 	ft_atoi(lookfrom[1]), ft_atoi(lookfrom[2]));
@@ -104,11 +95,7 @@ int			parse_light(t_scene *scene, char *line)
 	t_vec	*color;
 
 	s = ft_split(line, ' ');
-	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
-	{
-		printf("Error\n : Init light\n");
-		exit(EXIT_SUCCESS);
-	}
+	parse_check(s, 3, "Light");
 	vec_tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atoi(vec_tmp[0]),
 	ft_atoi(vec_tmp[1]), ft_atoi(vec_tmp[2]));

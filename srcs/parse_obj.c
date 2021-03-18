@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:11:19 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 20:45:11 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 11:32:25 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ int				parse_plane(t_scene *scene, char *line)
 	char		**tmp;
 
 	s = ft_split(line, ' ');
-	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
-	{
-		printf("Error\n : Init Plane\n");
-		exit(EXIT_SUCCESS);
-	}
+	parse_check(s, 3, "Plane");
 	tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
 	free_array((void **)tmp);
@@ -52,11 +48,7 @@ int				parse_sphere(t_scene *scene, char *line)
 	char		**tmp;
 
 	s = ft_split(line, ' ');
-	if (s == 0 || !s[1] || !s[2] || !s[3] || s[4])
-	{
-		printf("Error\n : Init Sphere\n");
-		exit(EXIT_SUCCESS);
-	}
+	parse_check(s, 3, "Sphere");
 	tmp = ft_split(s[1], ',');
 	origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
 	free_array((void **)tmp);
@@ -77,11 +69,7 @@ int				parse_triangle(t_scene *scene, char *line)
 	t_triangle	*tri;
 
 	s = ft_split(line, ' ');
-	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
-	{
-		printf("Error\n : Init Triangle\n");
-		exit(EXIT_SUCCESS);
-	}
+	parse_check(s, 4, "Triangle");
 	tri = (t_triangle *)ft_calloc(1, sizeof(t_triangle));
 	tmp = ft_split(s[1], ',');
 	tri->p0 = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
@@ -107,11 +95,7 @@ int				parse_square(t_scene *scene, char *line)
 	t_square	*sq;
 
 	s = ft_split(line, ' ');
-	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || s[5])
-	{
-		printf("Error\n : Init Square\n");
-		exit(EXIT_SUCCESS);
-	}
+	parse_check(s, 4, "Square");
 	sq = (t_square *)ft_calloc(1, sizeof(t_square));
 	tmp = ft_split(s[1], ',');
 	sq->origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));
@@ -136,11 +120,7 @@ int				parse_cylinder(t_scene *scene, char *line)
 	t_cylinder	*cy;
 
 	s = ft_split(line, ' ');
-	if (s == 0 || !s[1] || !s[2] || !s[3] || !s[4] || !s[5] || s[6])
-	{
-		printf("Error\n : Init Cylinder\n");
-		exit(EXIT_SUCCESS);
-	}
+	parse_check(s, 5, "Cylinder");
 	cy = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
 	tmp = ft_split(s[1], ',');
 	cy->origin = vec_create(ft_atod(tmp[0]), ft_atod(tmp[1]), ft_atod(tmp[2]));

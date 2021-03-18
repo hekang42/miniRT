@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:15:49 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 13:03:22 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 19:45:37 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_sp_set	set_sphere_var(t_sphere *sp, t_ray *r)
 	s.half_b = vec_dot(r->dir, s.oc);
 	s.c = vec_dot(s.oc, s.oc) - pow(sp->radius, 2);
 	s.discriminant = pow(s.half_b, 2) - s.a * s.c;
+	s.sqrtd = sqrt(s.discriminant);
 	free(s.oc);
 	return (s);
 }
@@ -45,7 +46,6 @@ int			sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 	s = set_sphere_var(sp, r);
 	if (s.discriminant < 0.00001)
 		return (FALSE);
-	s.sqrtd = sqrt(s.discriminant);
 	s.root = (-s.half_b - s.sqrtd) / s.a;
 	if (s.root < rec->t_min || s.root > rec->t_max)
 	{
@@ -62,8 +62,5 @@ int			sphere_hit(void *obj, t_ray *r, t_hit_record *rec)
 	rec->normal = vec_unit(vec_sub(rec->p, sp->center));
 	rec->color = vec_mul_const(sp->color, 1);
 	get_sphere_uv(rec);
-	// Normal disruption 
-	// rec->normal = vec_unit(vec_add(rec->normal, vec_mul_const(vec_create(1, 1, 1), 0.5 * sin(rec->v * 100))));
-
 	return (TRUE);
 }

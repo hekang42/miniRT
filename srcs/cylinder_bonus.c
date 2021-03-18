@@ -6,13 +6,13 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 21:03:43 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 13:01:40 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 15:25:50 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int				draw_circle(t_vec *a, double r, t_vec *n)
+int				draw_cir(t_vec *a, double r, t_vec *n)
 {
 	t_vec		*n_x;
 	t_vec		*n_y;
@@ -38,6 +38,15 @@ int				draw_circle(t_vec *a, double r, t_vec *n)
 	return (FALSE);
 }
 
+static void		set_rec(t_cylinder *cy, t_hit_record *rec, t_vec *p, double t)
+{
+	reset_hit_record(rec);
+	rec->p = p;
+	rec->t = t;
+	rec->normal = vec_create(cy->normal->x, cy->normal->y, cy->normal->z);
+	rec->color = vec_mul_const(cy->color, 1);
+}
+
 int				cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
 {
 	t_cylinder	*cy;
@@ -45,36 +54,25 @@ int				cylinder_hit_top_cap(void *obj, t_ray *r, t_hit_record *rec)
 	double		t;
 	t_vec		*c;
 	t_vec		*p;
-	t_vec		*tmp;
 
 	cy = (t_cylinder *)obj;
 	denominator = vec_dot(cy->normal, r->dir);
-	if (fabs(denominator) < 0.000001)
-		return (FALSE);
-	p = vec_mul_const(cy->normal, cy->height);
-	c = vec_add(cy->origin, p);
-	free(p);
+	c = vec_add_apply(vec_mul_const(cy->normal, cy->height), cy->origin);
 	p = vec_sub(c, r->orig);
 	t = vec_dot(p, cy->normal) / denominator;
 	free(p);
-	if (t < rec->t_min || t > rec->t_max)
+	if (t < rec->t_min || t > rec->t_max || fabs(denominator) < 0.000001)
 	{
 		free(c);
 		return (FALSE);
 	}
-	p = ray_at(r, t);
-	tmp = vec_sub(p, c);
-	free(c);
-	if (draw_circle(tmp, cy->diameter / 2, cy->normal))
+	if (draw_cir(vec_sub_apply(ray_at(r, t), c), cy->diameter / 2, cy->normal))
 	{
-		reset_hit_record(rec);
-		rec->p = p;
-		rec->t = t;
-		rec->normal = vec_create(cy->normal->x, cy->normal->y, cy->normal->z);
-		rec->color = vec_mul_const(cy->color, 1);
+		set_rec(cy, rec, vec_add_apply(vec_sub_apply(ray_at(r, t), c), c), t);
+		free(c);
 		return (TRUE);
 	}
-	free(p);
+	free(c);
 	return (FALSE);
 }
 
@@ -97,13 +95,9 @@ int				cylinder_hit_bottom_cap(void *obj, t_ray *r, t_hit_record *rec)
 		return (FALSE);
 	p = ray_at(r, t);
 	oc = vec_sub(p, cy->origin);
-	if (draw_circle(oc, cy->diameter / 2, cy->normal))
+	if (draw_cir(oc, cy->diameter / 2, cy->normal))
 	{
-		reset_hit_record(rec);
-		rec->p = p;
-		rec->t = t;
-		rec->normal = vec_create(cy->normal->x, cy->normal->y, cy->normal->z);
-		rec->color = vec_mul_const(cy->color, 1);
+		set_rec(cy, rec, p, t);
 		return (TRUE);
 	}
 	free(p);

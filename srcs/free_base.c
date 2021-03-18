@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:38:04 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/17 21:21:22 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:25:23 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void			free_light(t_light *light)
 void			free_light_list(t_list *list)
 {
 	t_list		*tmp;
-
 
 	while (list->content)
 	{

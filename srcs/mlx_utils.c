@@ -6,7 +6,7 @@
 /*   By: hekang <hekang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 13:33:21 by hekang            #+#    #+#             */
-/*   Updated: 2021/03/15 13:31:54 by hekang           ###   ########.fr       */
+/*   Updated: 2021/03/18 17:02:38 by hekang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,30 @@ void		mlx_show(t_vars vars, t_mlx_data *img, t_img_data *data)
 {
 	mlx_draw_by_img_data(img, data);
 	mlx_put_image_to_window(vars.mlx, vars.win, img->img, 0, 0);
+}
+
+int			exit_program(void)
+{
+	exit(0);
+	return (0);
+}
+
+int			mlx_key_handle(int keycode)
+{
+	if (keycode == 53)
+		return (exit_program());
+	if (keycode == 17)
+		return (exit_program());
+	if (keycode == 8)
+		return (change_camera());
+	return (0);
+}
+
+void		mlx_hook_utils(t_vars vars)
+{
+	mlx_hook(vars.win, X_KEY_PRESS, 0, mlx_key_handle, 0);
+	mlx_hook(vars.win, X_EVENT_KEY_EXIT, (1 << 5), exit_program, 0);
+	mlx_loop(vars.mlx);
 }
 
 /*
