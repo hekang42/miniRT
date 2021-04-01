@@ -22,7 +22,7 @@ $ make
 $ ./miniRT test.rt
 ```
 
->> for more read test.rt
+> for more read test.rt
 
 ### 🖼 Save IMG
 
