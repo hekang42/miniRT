@@ -24,3 +24,11 @@ $ ./miniRT test.rt
 
 >> for more read test.rt
 
+### 🖼 Save IMG
+
+```$ make
+$ make
+$ ./miniRT test.rt --save
+```
+
+> make BMP Image file
