@@ -15,3 +15,12 @@
 
 This project is an introduction to the beautiful world of Raytracing.
 
+### 💻 How to Run
+
+```
+$ make
+$ ./miniRT test.rt
+```
+
+>> for more read test.rt
+
